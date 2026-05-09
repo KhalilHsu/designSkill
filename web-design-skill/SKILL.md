@@ -9,12 +9,12 @@ Use this skill when the user asks to generate, redesign, polish, or implement a 
 
 ## Core Workflow
 
-1. Clarify the target only when needed:
-   - Page or screen type.
-   - Audience and tone.
-   - Required content.
-   - Technical stack: plain HTML/CSS, React, Next.js, Tailwind, or existing project conventions.
-   - Desired visual direction, if provided.
+1. Clarify the target when ambiguity would materially change the result:
+   - If page type, technical stack, content, audience, or constraints are missing and cannot be safely inferred, ask 1-3 concise questions.
+   - Prefer short choice-based questions, but do not block on clarification when a reasonable default can be chosen.
+   - If proceeding with assumptions, state them briefly before implementation.
+   - Confirm the technical stack: plain HTML/CSS, React, Next.js, Tailwind, or existing project conventions.
+   - Identify the primary audience, required content, and desired visual direction.
 
 2. Choose a visual direction before writing code.
    - If the user gave a style, honor it.

@@ -47,6 +47,7 @@ For React:
 - Use props for repeated content blocks.
 - Keep design tokens in CSS or theme files, not inline style objects by default.
 - Avoid unnecessary memoization unless the existing codebase uses it or performance requires it.
+- For new React code without an existing design system, build semantic, accessible components using headless-component principles. Use libraries such as Radix UI or shadcn/ui only when the project already uses them or the user asks for them.
 
 ## Next.js
 
