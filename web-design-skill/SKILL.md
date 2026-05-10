@@ -45,6 +45,7 @@ This skill uses progressive disclosure. Do not load every reference by default. 
 
 6. Implement components with real states.
    - Buttons, nav, cards, forms, badges, tabs, tables, screenshots, empty states, or content blocks as appropriate.
+   - Name components by their product role before implementing them, such as `pricing-card`, `source-filter`, `insight-table`, or `top-nav`.
    - Include hover, focus, active, disabled, loading, and responsive states when relevant.
    - Read `references/components-states.md` and `references/interaction-motion.md` when interaction detail matters.
 

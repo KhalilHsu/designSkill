@@ -27,6 +27,13 @@ Start with tokens:
 
 Do not scatter raw values everywhere after defining tokens.
 
+Name components and classes by role before styling them. The component names in code should match the inventory from `components-states.md`:
+
+- Good: `TopNav`, `MetricStrip`, `SourceFilter`, `InsightTable`, `RecordMasthead`, `.pricing-card`, `.activity-feed`.
+- Weak: `Box`, `Panel2`, `BlueCard`, `.fancy`, `.left`.
+
+For repeated patterns, keep the base primitive clear and add role-specific variants only where the product behavior differs, such as `.card`, `.pricing-card`, `.metric-card`, and `.media-card`.
+
 ## Plain HTML/CSS
 
 For standalone pages:

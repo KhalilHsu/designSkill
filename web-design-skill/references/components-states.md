@@ -5,9 +5,26 @@ Read this when choosing or implementing visible UI components. Use only states t
 Output after reading:
 
 - Component list.
+- Component role names.
 - Required states.
 - Interaction affordances.
 - Empty/loading/error handling when relevant.
+
+## Component Inventory And Names
+
+Before implementing, write a short component inventory in your own notes or implementation plan. Each component should have a role-based name, a purpose, and the states it needs.
+
+Prefer names that describe the product job:
+
+- `top-nav`, `account-switcher`, `source-filter`, `pricing-card`.
+- `metric-strip`, `insight-table`, `activity-feed`, `record-masthead`.
+- `hero-product-frame`, `feature-proof-card`, `testimonial-row`, `checkout-summary`.
+
+Avoid vague or decoration-first names:
+
+- `box`, `section1`, `blue-card`, `fancy-panel`, `left-column`.
+
+Use generic primitives only when they are truly reusable across contexts, such as `button`, `badge`, `tabs`, `dialog`, or `empty-state`. For page-specific UI, attach the business or workflow role so the design stays tied to the product.
 
 ## Component Anatomy
 
