@@ -50,3 +50,12 @@ Answer these questions in this order:
   - *Good:* "Q3 Revenue Doubled Driven by Enterprise Sales"
 - **Build Tension and Release:** Alternate between high-density data slides and clean, single-statement "breather" slides.
 - **Evidence Before Polish:** A visually strong slide with an unsupported claim is a broken slide.
+
+## Chinese Narrative Rules
+
+- Rewrite the slide title as a Chinese conclusion sentence, not a translated section label.
+  - Bad: `Q3 财务表现`
+  - Good: `Q3 收入翻倍，主要由企业客户拉动`
+- Prefer short, spoken Chinese for deck claims. Avoid official-report phrasing unless the audience expects it.
+- Keep one action verb per title when possible: `下降`, `翻倍`, `转向`, `延后`, `集中`, `验证`.
+- Use `问题 -> 发现 -> 证据 -> 细节 -> 风险 -> 行动` for Chinese research decks when no stronger structure is specified.

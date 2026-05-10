@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>图书馆降温空间研究简报</title>
+  <style>
+    :root {
+      --bg: #f7f1e7;
+      --paper: #fffaf0;
+      --ink: #241f1a;
+      --muted: #6f6559;
+      --rule: rgba(36, 31, 26, 0.18);
+      --accent: #0f766e;
+      --warm: #b45309;
+      --risk: #be123c;
+      --soft: #eadfcc;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      overflow: hidden;
+      display: grid;
+      place-items: center;
+      background: #d8c9b6;
+      color: var(--ink);
+      font-family: "Noto Serif SC", "Songti SC", "STSong", Georgia, serif;
+    }
+
+    #deck {
+      width: 100vw;
+      height: 100vh;
+      max-width: calc(100vh * (16 / 9));
+      max-height: calc(100vw * (9 / 16));
+      background:
+        linear-gradient(90deg, rgba(15, 118, 110, 0.08) 0 1px, transparent 1px 100%),
+        linear-gradient(180deg, rgba(15, 118, 110, 0.06) 0 1px, transparent 1px 100%),
+        var(--bg);
+      background-size: 4vw 4vw;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 26px 80px rgba(62, 39, 18, 0.32);
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      padding: 5vw 6vw;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 260ms ease;
+      display: flex;
+      flex-direction: column;
+      gap: 2vw;
+    }
+
+    .slide.current {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .folio {
+      position: absolute;
+      top: 2vw;
+      right: 3vw;
+      color: var(--muted);
+      font-size: clamp(0.7rem, 0.85vw, 0.9rem);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", ui-sans-serif, system-ui, sans-serif;
+    }
+
+    .kicker {
+      color: var(--accent);
+      font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", ui-sans-serif, system-ui, sans-serif;
+      font-size: clamp(0.7rem, 0.9vw, 0.95rem);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-weight: 800;
+    }
+
+    h1, h2, h3, p { margin: 0; }
+
+    h1 {
+      font-size: clamp(3.3rem, 6.6vw, 7.5rem);
+      line-height: 1.08;
+      letter-spacing: 0;
+      max-width: 12ch;
+    }
+
+    h2 {
+      font-size: clamp(2.25rem, 4.6vw, 5.2rem);
+      line-height: 1.12;
+      letter-spacing: 0;
+      max-width: 13ch;
+    }
+
+    h3 {
+      font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", ui-sans-serif, system-ui, sans-serif;
+      font-size: clamp(1.05rem, 1.5vw, 1.65rem);
+      letter-spacing: 0;
+    }
+
+    .sub {
+      color: var(--muted);
+      font-size: clamp(1rem, 1.45vw, 1.55rem);
+      line-height: 1.45;
+      max-width: 42ch;
+    }
+
+    .source-note {
+      margin-top: auto;
+      padding-top: 1vw;
+      border-top: 1px solid var(--rule);
+      color: var(--muted);
+      font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", ui-sans-serif, system-ui, sans-serif;
+      font-size: clamp(0.66rem, 0.82vw, 0.86rem);
+      line-height: 1.45;
+      max-width: 78ch;
+    }
+
+    .hero {
+      justify-content: center;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: 5vw;
+      bottom: 5vw;
+      width: 18vw;
+      height: 18vw;
+      border: 1px solid var(--rule);
+      border-radius: 50%;
+      background: conic-gradient(from 220deg, rgba(15, 118, 110, 0.22), rgba(180, 83, 9, 0.24), transparent 72%);
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 4vw;
+      align-items: center;
+      height: 100%;
+    }
+
+    .big-stat {
+      display: grid;
+      place-items: center;
+      min-height: 26vw;
+      background: var(--paper);
+      border: 1px solid var(--rule);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.62);
+    }
+
+    .big-stat strong {
+      font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", ui-sans-serif, system-ui, sans-serif;
+      color: var(--warm);
+      font-size: clamp(5rem, 10vw, 12rem);
+      line-height: 0.9;
+      letter-spacing: -0.07em;
+    }
+
+    .big-stat span {
+      color: var(--muted);
+      font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", ui-sans-serif, system-ui, sans-serif;
+      font-size: clamp(0.92rem, 1.25vw, 1.35rem);
+      margin-top: 0.8vw;
+      display: block;
+      text-align: center;
+      max-width: 22ch;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1vw;
+      margin-top: 1.2vw;
+    }
+
+    .card {
+      min-height: 14vw;
+      padding: 1.35vw;
+      background: var(--paper);
+      border: 1px solid var(--rule);
+      display: flex;
+      flex-direction: column;
+      gap: 0.8vw;
+    }
+
+    .card b {
+      font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", ui-sans-serif, system-ui, sans-serif;
+      font-size: clamp(1.45rem, 2.3vw, 2.5rem);
+      color: var(--accent);
+    }
+
+    .card p {
+      color: var(--muted);
+      font-size: clamp(0.85rem, 1.08vw, 1.12rem);
+      line-height: 1.38;
+    }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      align-items: end;
+      gap: 0.9vw;
+      height: 25vw;
+      padding: 1.4vw;
+      background: var(--paper);
+      border: 1px solid var(--rule);
+    }
+
+    .day {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      gap: 0.5vw;
+    }
+
+    .heat {
+      background: linear-gradient(180deg, var(--risk), var(--warm));
+      min-height: 18%;
+      border-radius: 999px 999px 0 0;
+    }
+
+    .cool {
+      background: linear-gradient(180deg, var(--accent), #99f6e4);
+      min-height: 12%;
+      border-radius: 999px 999px 0 0;
+    }
+
+    .day label {
+      font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", ui-sans-serif, system-ui, sans-serif;
+      color: var(--muted);
+      font-size: clamp(0.66rem, 0.82vw, 0.88rem);
+      text-align: center;
+    }
+
+    .legend {
+      display: flex;
+      gap: 1vw;
+      color: var(--muted);
+      font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", ui-sans-serif, system-ui, sans-serif;
+      font-size: clamp(0.72rem, 0.88vw, 0.92rem);
+    }
+
+    .dot {
+      width: 0.8em;
+      height: 0.8em;
+      display: inline-block;
+      border-radius: 50%;
+      margin-right: 0.35em;
+      background: var(--accent);
+    }
+
+    .dot.risk { background: var(--risk); }
+
+    .matrix {
+      display: grid;
+      grid-template-columns: 0.8fr 1fr 1fr 1fr;
+      border: 1px solid var(--rule);
+      background: var(--paper);
+      margin-top: 1vw;
+    }
+
+    .cell {
+      min-height: 6.2vw;
+      border-right: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+      padding: 1vw;
+      font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", ui-sans-serif, system-ui, sans-serif;
+      font-size: clamp(0.74rem, 0.96vw, 1rem);
+      color: var(--muted);
+      line-height: 1.35;
+    }
+
+    .cell:nth-child(4n) { border-right: 0; }
+    .cell:nth-last-child(-n + 4) { border-bottom: 0; }
+    .cell.head { color: var(--ink); font-weight: 800; background: var(--soft); }
+    .cell.good { color: var(--accent); font-weight: 800; }
+
+    .progress {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: 0.32vw;
+      width: 100%;
+      background: rgba(36, 31, 26, 0.12);
+      z-index: 4;
+    }
+
+    .progress span {
+      display: block;
+      height: 100%;
+      width: 0;
+      background: var(--accent);
+      transition: width 260ms ease;
+    }
+  </style>
+</head>
+<body>
+  <main id="deck" aria-label="图书馆降温空间研究简报">
+    <section class="slide current hero" data-source="city_heat.brief" data-query-id="cooling_site_thesis" data-metric="library_cooling_access">
+      <span class="folio">研究简报 / 01</span>
+      <p class="kicker">降温空间</p>
+      <h1>图书馆正在变成城市热浪基础设施。</h1>
+      <p class="sub">这份研究简报说明：在极端高温周，社区图书馆为什么可能成为最可信赖的公共降温网络。</p>
+      <p class="source-note">证据地图：用于 skill 测试的示意性城市数据集；数据源模拟自图书馆客流、天气预警和降温中心登记表。</p>
+    </section>
+
+    <section class="slide" data-source="weather.alerts" data-query-id="extreme_heat_days_by_neighborhood" data-metric="heat_alert_days">
+      <span class="folio">发现 / 02</span>
+      <div class="split">
+        <div>
+          <p class="kicker">问题</p>
+          <h2>热风险是局部的，但降温计划往往是全城平均的。</h2>
+          <p class="sub">错配最先出现在老人密度高、树荫少、公共交通不方便的社区。</p>
+        </div>
+        <div class="big-stat">
+          <div>
+            <strong>11</strong>
+            <span>低树冠覆盖社区多出的高温预警天数</span>
+          </div>
+        </div>
+      </div>
+      <p class="source-note">来源：weather.alerts 关联 neighborhood_canopy_index，2025 年 6-9 月。数值为示意，不代表真实城市结论。</p>
+    </section>
+
+    <section class="slide" data-source="library.visits" data-query-id="visits_during_heat_alerts" data-metric="heat_week_library_visits">
+      <span class="folio">证据 / 03</span>
+      <p class="kicker">短答案</p>
+      <h2>居民已经把图书馆当成非正式降温空间。</h2>
+      <div class="cards">
+        <div class="card"><b>+31%</b><p>高温预警周的工作日到访量，相比季节基线提升</p></div>
+        <div class="card"><b>2.4x</b><p>靠近老人公寓的分馆，下午停留时长更高</p></div>
+        <div class="card"><b>68%</b><p>受访者提到遮阴、饮水或空调是留下来的原因</p></div>
+      </div>
+      <p class="source-note">来源：library.visits 与 visitor_intercepts，n=420，为 deck 测试建模。样本：每周至少开放 6 天的分馆。</p>
+    </section>
+
+    <section class="slide" data-source="branch.operations" data-query-id="cooling_capacity_gap" data-metric="seat_hours_gap">
+      <span class="folio">细节 / 04</span>
+      <div class="split">
+        <div>
+          <p class="kicker">容量</p>
+          <h2>真正缺口是下午座位小时，不是公众认知。</h2>
+          <p class="sub">最吸收高温客流的分馆，往往在室内风险最高的时段结束前就关门了。</p>
+          <div class="legend"><span><i class="dot risk"></i>热暴露</span><span><i class="dot"></i>降温可达性</span></div>
+        </div>
+        <div class="timeline" role="img" aria-label="下午热暴露峰值晚于降温可达性峰值。">
+          <div class="day"><div class="heat" style="height: 42%"></div><div class="cool" style="height: 62%"></div><label>10点</label></div>
+          <div class="day"><div class="heat" style="height: 58%"></div><div class="cool" style="height: 70%"></div><label>12点</label></div>
+          <div class="day"><div class="heat" style="height: 83%"></div><div class="cool" style="height: 64%"></div><label>14点</label></div>
+          <div class="day"><div class="heat" style="height: 96%"></div><div class="cool" style="height: 38%"></div><label>16点</label></div>
+          <div class="day"><div class="heat" style="height: 76%"></div><div class="cool" style="height: 12%"></div><label>18点</label></div>
+        </div>
+      </div>
+      <p class="source-note">来源：branch.operations 开放时间与建模热指数曲线，2025 年 7 月。指标：高温预警日可用公共座位小时。</p>
+    </section>
+
+    <section class="slide" data-source="program.options" data-query-id="intervention_comparison" data-metric="cooling_program_fit">
+      <span class="folio">决策 / 05</span>
+      <p class="kicker">方案</p>
+      <h2>优先延长那些已经吸收高温需求的分馆。</h2>
+      <div class="matrix">
+        <div class="cell head">方案</div><div class="cell head">速度</div><div class="cell head">信任</div><div class="cell head">成本控制</div>
+        <div class="cell">新建降温中心</div><div class="cell">选址启动慢</div><div class="cell">客流未知</div><div class="cell">人员投入高</div>
+        <div class="cell">交通补贴</div><div class="cell">上线快</div><div class="cell">依赖触达</div><div class="cell">需求波动大</div>
+        <div class="cell good">图书馆延时降温</div><div class="cell good">复用现有场地</div><div class="cell good">已有社区信任</div><div class="cell good">定向加班即可</div>
+      </div>
+      <p class="source-note">来源：program.options 比较模型。假设：仅纳入有备用电力、饮水设施和无障碍覆盖的分馆。</p>
+    </section>
+
+    <section class="slide" data-source="pilot.plan" data-query-id="cooling_rooms_90_day_pilot" data-metric="pilot_success_measures">
+      <span class="folio">行动 / 06</span>
+      <p class="kicker">试点</p>
+      <h2>在下一个高温季前，跑一个 90 天降温空间试点。</h2>
+      <div class="cards">
+        <div class="card"><b>8</b><p>按热风险、老人密度和交通距离筛选优先分馆</p></div>
+        <div class="card"><b>2h</b><p>高温预警日延长晚间开放窗口</p></div>
+        <div class="card"><b>4</b><p>跟踪到访、停留、转介和现场事件四类指标</p></div>
+      </div>
+      <p class="source-note">来源：pilot.plan。这是用于测试“报告型演示节奏”的示意公共政策 deck。</p>
+    </section>
+
+    <div class="progress" aria-hidden="true"><span id="progress"></span></div>
+  </main>
+
+  <script>
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    const progress = document.getElementById('progress');
+    let currentIndex = 0;
+
+    function show(index) {
+      slides[currentIndex].classList.remove('current');
+      currentIndex = Math.max(0, Math.min(index, slides.length - 1));
+      slides[currentIndex].classList.add('current');
+      progress.style.width = `${((currentIndex + 1) / slides.length) * 100}%`;
+    }
+
+    document.addEventListener('keydown', (event) => {
+      if (['ArrowRight', ' ', 'Enter'].includes(event.key)) show(currentIndex + 1);
+      if (event.key === 'ArrowLeft') show(currentIndex - 1);
+    });
+
+    document.addEventListener('click', (event) => {
+      show(event.clientX > window.innerWidth / 2 ? currentIndex + 1 : currentIndex - 1);
+    });
+
+    show(0);
+  </script>
+</body>
+</html>

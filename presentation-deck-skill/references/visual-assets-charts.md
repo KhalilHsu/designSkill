@@ -41,6 +41,16 @@ Every chart or important number should carry a compact evidence label when sourc
 - `Input: user_research.csv, n=38`
 - `Assumption: projected from current pilot conversion`
 
+For Chinese decks, localize the explanatory label but keep technical handles unchanged:
+- `来源：warehouse.orders，2026 年 1-3 月`
+- `查询：weekly_active_accounts，仅付费团队`
+- `输入：user_research.csv，n=38`
+- `假设：基于当前试点转化率外推`
+
+Use Chinese metric language when it improves comprehension:
+- `同比增长`, `环比下降`, `近 30 天`, `7 日均值`, `样本 n=`, `口径：付费企业账户`.
+- Preserve metric IDs and query IDs exactly in metadata or code snippets.
+
 ## Imagery Strategy
 
 - **Product Screenshots:** Prefer real product screenshots when the slide claims product capability. Crop and annotate the part that supports the claim.

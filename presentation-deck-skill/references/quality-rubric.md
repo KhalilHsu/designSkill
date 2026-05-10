@@ -56,3 +56,21 @@ Fix when:
 - A chart is only decorative but appears to represent real data.
 - The title overclaims relative to the evidence shown.
 - Data source, segment, cohort, or time window ambiguity could change the interpretation.
+
+## Language Fit
+
+Pass when:
+- Visible slide copy follows the user's requested or implied language.
+- Chinese decks read like natural presentation Chinese, not translated English.
+- Technical identifiers such as table names, query IDs, metric IDs, product names, and code snippets remain stable when needed.
+- Chinese titles are rewritten as concise claims, not literal translations of English slide titles.
+- Chinese punctuation, source labels, chart labels, legends, and units are consistent across slides.
+- Data labels use natural Chinese terms such as `来源：`, `假设：`, `样本：`, `同比`, `环比`, `近 30 天`, and `n=`.
+
+Fix when:
+- A Chinese request produces an English deck without being asked.
+- Labels, source notes, and navigation text mix languages without a clear reason.
+- Chinese copy becomes too long for the slide because it was translated mechanically instead of rewritten for presentation density.
+- Slide chrome says `Research brief`, `Source`, `Finding`, `Decision`, or `Ask` in an otherwise Chinese deck.
+- Full-width Chinese punctuation appears inside code/query identifiers, or ASCII punctuation appears in normal Chinese prose without reason.
+- Large Chinese headings use Latin-only display-font assumptions or aggressive negative tracking.

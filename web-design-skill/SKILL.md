@@ -91,6 +91,11 @@ Read references based on the current design problem:
 - If the user requests a multilingual page, define the language structure explicitly.
 - Do not default to English just because the implementation uses HTML, CSS, React, Next.js, or another English-heavy technical stack.
 - Avoid machine-translated copy. Write natural copy for the selected language and audience.
+- For Chinese UI, rewrite copy for Chinese scanning rhythm instead of translating English labels word-for-word.
+- Use Chinese punctuation in Chinese copy: `，` `。` `：` `；` `（ ）`. Keep ASCII punctuation inside code, URLs, query IDs, filenames, and technical identifiers.
+- Preserve common product/technical nouns when they are clearer in English, but explain the surrounding UI in Chinese.
+- Keep Chinese button labels short and action-oriented, usually 2-6 characters when possible.
+- For data-backed Chinese pages, use natural units and labels such as `万元`, `同比`, `环比`, `近 30 天`, `样本 n=`, and `来源：`.
 
 ## Style Selection Rules
 

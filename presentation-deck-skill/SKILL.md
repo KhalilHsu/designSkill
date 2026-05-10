@@ -20,6 +20,7 @@ This skill uses progressive disclosure. Do not load every reference by default. 
    - What is the ONE main takeaway the audience should remember?
    - What source material exists: database export, SQL result, metrics table, analysis memo, screenshots, research notes, or rough claims?
    - Confirm the desired output: web-native HTML/CSS/JS slide deck, React components with slide behavior, or just a detailed textual outline.
+   - Match the deck copy language to the user's prompt language unless the user explicitly asks for another language.
 
 2. Build the evidence map before writing slides:
    - List the core claims the deck needs to make.
@@ -62,3 +63,11 @@ Read references based on the current presentation design phase:
 - Data visualization, diagrams, metrics display: read `references/visual-assets-charts.md`.
 - Code generation (web-native HTML/CSS/JS slide architectures): read `references/implementation-patterns.md`.
 - Final check against presentation anti-patterns: read `references/quality-rubric.md`.
+
+## Language Behavior
+
+- Default all visible deck copy to the user's prompt language.
+- If the user asks in Chinese, generate Chinese titles, body copy, labels, notes, controls, and source explanations by default.
+- Preserve explicit brand names, product names, dataset names, table names, query IDs, metrics IDs, code snippets, and proper nouns in the language or notation provided.
+- If the user requests a bilingual deck, define the language structure deliberately instead of mixing languages casually.
+- Avoid literal machine translation. Write natural presentation copy for the selected audience and language.

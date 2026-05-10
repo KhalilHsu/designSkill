@@ -50,12 +50,48 @@ Choose fonts by role:
 
 If a brand font is unavailable, use a realistic substitute. Do not reference external fonts unless the implementation imports them.
 
+### Chinese-First Font Selection
+
+When the user writes in Chinese or the audience is primarily Chinese, choose Chinese-capable font stacks first:
+
+```css
+--font-sans: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", "Source Han Sans SC", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+--font-serif: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "STSong", Georgia, serif;
+--font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+```
+
+- Product, SaaS, dashboard, and database UI: use the sans stack.
+- Editorial, report-like, or cultural pages: optionally use the serif stack for large headings, then sans for controls and metadata.
+- Code, table names, query IDs, and file paths: use mono only for those fragments.
+- Do not use Latin display fonts as the primary style for Chinese content; Chinese glyphs will fall back and the visual system will look accidental.
+
+## Chinese Copy Density
+
+Chinese UI often looks compact but can become dense quickly. Design for scanning:
+
+- Hero headline: one clear Chinese claim, not a translated paragraph.
+- Card text: one sentence or one short metric explanation.
+- Button text: short verbs such as `查看详情`, `生成报告`, `保存视图`, `重新分析`.
+- Metadata: prefer compact labels such as `来源：`, `更新时间：`, `样本：`, `口径：`.
+- Empty states: state what happened and the next action; avoid decorative motivational copy.
+
 ## Letter Spacing
 
 - Large sans-serif headings often benefit from slight negative tracking.
 - Small labels may need slight positive tracking.
 - Body text usually should not be tightly tracked.
 - All-caps labels need additional letter spacing.
+- Chinese body and headings should usually use `letter-spacing: 0`.
+- Avoid aggressive negative tracking on Chinese. Use at most `-0.01em` for very large short headings.
+- Use positive tracking only for short Latin labels or all-caps English fragments, not normal Chinese labels.
+
+## Chinese Punctuation, Numbers, And Units
+
+- Use Chinese punctuation for Chinese prose and UI labels.
+- Keep ASCII punctuation inside code, URLs, SQL, query IDs, filenames, and data attributes.
+- Keep Arabic numerals for metrics, dates, money, percentages, and counts.
+- Use natural Chinese units where appropriate: `万元`, `亿元`, `人`, `次`, `小时`, `近 7 天`, `2026 年 Q1`.
+- Keep technical identifiers stable: `warehouse.orders`, `data-query-id`, `weekly_active_accounts`.
 
 ## Color System
 

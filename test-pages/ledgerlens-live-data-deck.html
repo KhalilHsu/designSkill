@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LedgerLens 实时数据 Deck</title>
+  <style>
+    :root {
+      --bg: #07111f;
+      --panel: #0e1d33;
+      --panel-2: #132945;
+      --text-main: #f8fafc;
+      --text-muted: #9fb3c8;
+      --accent: #38bdf8;
+      --accent-2: #22c55e;
+      --risk: #f59e0b;
+      --line: rgba(148, 163, 184, 0.26);
+      --shadow: rgba(2, 6, 23, 0.6);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      overflow: hidden;
+      background: #020617;
+      color: var(--text-main);
+      font-family: "PingFang SC", "Microsoft YaHei", Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      display: grid;
+      place-items: center;
+    }
+
+    #deck {
+      width: 100vw;
+      height: 100vh;
+      max-width: calc(100vh * (16 / 9));
+      max-height: calc(100vw * (9 / 16));
+      background:
+        radial-gradient(circle at 12% 18%, rgba(56, 189, 248, 0.2), transparent 34%),
+        linear-gradient(135deg, #07111f 0%, #0b1728 52%, #050914 100%);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 28px 90px var(--shadow);
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      padding: 5.2vw 6.2vw;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 260ms ease;
+      display: flex;
+      flex-direction: column;
+      gap: 2.2vw;
+    }
+
+    .slide.current {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .kicker {
+      color: var(--accent);
+      font-size: clamp(0.72rem, 1vw, 1rem);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-weight: 800;
+    }
+
+    h1, h2, h3, p { margin: 0; }
+
+    h1 {
+      font-size: clamp(3rem, 6.2vw, 7.2rem);
+      line-height: 1.06;
+      letter-spacing: -0.005em;
+      max-width: 11ch;
+    }
+
+    h2 {
+      font-size: clamp(2.15rem, 4.25vw, 5.1rem);
+      line-height: 1.1;
+      letter-spacing: -0.005em;
+      max-width: 13ch;
+    }
+
+    h3 {
+      font-size: clamp(1.2rem, 1.8vw, 2rem);
+      letter-spacing: 0;
+    }
+
+    .sub {
+      color: var(--text-muted);
+      font-size: clamp(1rem, 1.45vw, 1.5rem);
+      line-height: 1.45;
+      max-width: 42ch;
+    }
+
+    .source-note {
+      margin-top: auto;
+      color: rgba(203, 213, 225, 0.72);
+      font-size: clamp(0.68rem, 0.86vw, 0.86rem);
+      line-height: 1.4;
+      max-width: 72ch;
+    }
+
+    .hero {
+      justify-content: center;
+    }
+
+    .hero .sub {
+      font-size: clamp(1.1rem, 1.8vw, 1.85rem);
+      max-width: 32ch;
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: 0.92fr 1.08fr;
+      align-items: center;
+      gap: 4.4vw;
+      height: 100%;
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.1vw;
+    }
+
+    .metric-card,
+    .panel {
+      background: linear-gradient(180deg, rgba(15, 35, 60, 0.88), rgba(11, 22, 38, 0.88));
+      border: 1px solid var(--line);
+      border-radius: 1.1vw;
+      padding: 1.55vw;
+      box-shadow: 0 18px 40px rgba(2, 6, 23, 0.22);
+    }
+
+    .metric {
+      color: var(--text-main);
+      font-size: clamp(2.8rem, 5.3vw, 6.5rem);
+      line-height: 0.9;
+      letter-spacing: -0.06em;
+      font-weight: 850;
+    }
+
+    .label {
+      color: var(--text-muted);
+      font-size: clamp(0.78rem, 1vw, 1.05rem);
+      line-height: 1.36;
+      margin-top: 0.85vw;
+    }
+
+    .bars {
+      height: 24vw;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 0.9vw;
+      align-items: end;
+      padding: 1.6vw;
+    }
+
+    .bar-wrap {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      gap: 0.55vw;
+    }
+
+    .bar {
+      min-height: 8%;
+      border-radius: 0.35vw 0.35vw 0 0;
+      background: linear-gradient(180deg, var(--accent), #1d4ed8);
+      position: relative;
+    }
+
+    .bar strong {
+      position: absolute;
+      top: -1.7vw;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: clamp(0.68rem, 0.86vw, 0.95rem);
+      color: var(--text-main);
+      white-space: nowrap;
+    }
+
+    .bar-label {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: clamp(0.62rem, 0.76vw, 0.82rem);
+    }
+
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1vw;
+      margin-top: 2vw;
+    }
+
+    .step {
+      border: 1px solid var(--line);
+      background: rgba(15, 23, 42, 0.68);
+      padding: 1.3vw;
+      border-radius: 0.9vw;
+      min-height: 11vw;
+    }
+
+    .step span {
+      color: var(--accent);
+      font-weight: 800;
+      font-size: clamp(0.78rem, 0.96vw, 1rem);
+    }
+
+    .step p {
+      color: var(--text-muted);
+      font-size: clamp(0.9rem, 1.2vw, 1.25rem);
+      line-height: 1.35;
+      margin-top: 1vw;
+    }
+
+    .query-card {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      background: #030712;
+      border: 1px solid rgba(56, 189, 248, 0.32);
+      border-radius: 1vw;
+      padding: 1.4vw;
+      color: #dbeafe;
+      font-size: clamp(0.72rem, 1vw, 1.08rem);
+      line-height: 1.65;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03);
+    }
+
+    .query-card em { color: var(--accent-2); font-style: normal; }
+
+    .ask-box {
+      margin-top: 2vw;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1vw;
+    }
+
+    .ask-box div {
+      padding: 1.35vw;
+      border-radius: 0.9vw;
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.28);
+    }
+
+    .ask-box strong {
+      display: block;
+      font-size: clamp(1.25rem, 2vw, 2.2rem);
+      margin-bottom: 0.4vw;
+    }
+
+    .ask-box span {
+      color: var(--text-muted);
+      font-size: clamp(0.86rem, 1.1vw, 1.15rem);
+    }
+
+    .progress {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: 0.32vw;
+      width: 100%;
+      background: rgba(148, 163, 184, 0.14);
+      z-index: 4;
+    }
+
+    .progress span {
+      display: block;
+      height: 100%;
+      width: 0;
+      background: var(--accent);
+      transition: width 260ms ease;
+    }
+
+    .counter {
+      position: absolute;
+      right: 1.3vw;
+      bottom: 0.9vw;
+      z-index: 5;
+      color: rgba(203, 213, 225, 0.62);
+      font-size: clamp(0.65rem, 0.82vw, 0.84rem);
+      font-variant-numeric: tabular-nums;
+    }
+  </style>
+</head>
+<body>
+  <main id="deck" aria-label="LedgerLens 实时数据 Deck">
+    <section class="slide current hero" data-source="product.analytics.briefing" data-query-id="deck_positioning_v1" data-metric="time_to_board_narrative">
+      <p class="kicker">LedgerLens / 种子轮 Pitch</p>
+      <h1>财务汇报 deck 应该自己更新。</h1>
+      <p class="sub">LedgerLens 把数仓指标变成可审计的董事会幻灯片：数字有来源，叙事可检查，证据可刷新。</p>
+      <p class="source-note">证据地图：合成试点数据集，12 个财务团队，2026 年 1-4 月。所有指标均为 skill 测试示意。</p>
+    </section>
+
+    <section class="slide" data-source="pilot.time_study" data-query-id="monthly_board_packet_hours" data-metric="hours_spent_refreshing_decks">
+      <div class="split">
+        <div>
+          <p class="kicker">问题</p>
+          <h2>分析师每个月都在重做同一份 deck。</h2>
+          <p class="sub">瓶颈不是图表好不好看，而是对数、解释波动，并证明每一个指标从哪里来。</p>
+        </div>
+        <div class="metric-grid">
+          <div class="metric-card">
+            <div class="metric">18h</div>
+            <p class="label">刷新一份董事会材料的中位耗时</p>
+          </div>
+          <div class="metric-card">
+            <div class="metric">41%</div>
+            <p class="label">财务复核后被改动的页面比例</p>
+          </div>
+          <div class="metric-card">
+            <div class="metric">6</div>
+            <p class="label">每月 deck 需要触达的系统数</p>
+          </div>
+        </div>
+      </div>
+      <p class="source-note">来源：pilot.time_study，n=12 个财务团队，自报月结工作流，2026 年 4 月。</p>
+    </section>
+
+    <section class="slide" data-source="pilot.deck_ops" data-query-id="refresh_cycle_by_team" data-metric="deck_refresh_hours">
+      <p class="kicker">证据</p>
+      <h2>带来源的幻灯片让刷新工作量下降 64%。</h2>
+      <div class="panel bars" role="img" aria-label="六个试点团队的 deck 刷新耗时从 19 小时下降到 6.8 小时。">
+        <div class="bar-wrap"><div class="bar" style="height: 95%"><strong>19.0h</strong></div><div class="bar-label">基线</div></div>
+        <div class="bar-wrap"><div class="bar" style="height: 74%"><strong>14.8h</strong></div><div class="bar-label">第1周</div></div>
+        <div class="bar-wrap"><div class="bar" style="height: 56%"><strong>11.2h</strong></div><div class="bar-label">第2周</div></div>
+        <div class="bar-wrap"><div class="bar" style="height: 44%"><strong>8.9h</strong></div><div class="bar-label">第3周</div></div>
+        <div class="bar-wrap"><div class="bar" style="height: 36%"><strong>7.2h</strong></div><div class="bar-label">第4周</div></div>
+        <div class="bar-wrap"><div class="bar" style="height: 34%"><strong>6.8h</strong></div><div class="bar-label">第5周</div></div>
+      </div>
+      <p class="source-note">来源：pilot.deck_ops.refresh_cycle_by_team。查询过滤：仅董事会材料页面，排除一次性融资 deck。</p>
+    </section>
+
+    <section class="slide" data-source="ledgerlens.runtime_spec" data-query-id="live_deck_protocol" data-metric="claim_to_source_linkage">
+      <p class="kicker">产品</p>
+      <h2>幻灯片本身变成审计界面。</h2>
+      <div class="flow">
+        <div class="step"><span>01 结论</span><p>每页先说明它支持哪个决策。</p></div>
+        <div class="step"><span>02 Query ID</span><p>指标指向已审批后端查询，而不是裸 SQL。</p></div>
+        <div class="step"><span>03 证据</span><p>来源说明对董事会和投资人保持可见。</p></div>
+        <div class="step"><span>04 刷新</span><p>运行时可在权限允许时重新注入数据。</p></div>
+      </div>
+      <p class="source-note">来源：ledgerlens.runtime_spec。设计假设：query ID 在服务端做权限控制，DOM 中永不暴露裸 SQL。</p>
+    </section>
+
+    <section class="slide" data-source="ledgerlens.prototype" data-query-id="section_metadata_example" data-metric="live_deck_contract">
+      <div class="split">
+        <div>
+          <p class="kicker">协议</p>
+          <h2>硬编码数字变成可刷新的证据。</h2>
+          <p class="sub">HTML 仍然只负责呈现。认证、缓存和已审批查询执行，都交给真实应用运行时。</p>
+        </div>
+        <div class="query-card">
+          &lt;section class="slide"<br>
+          &nbsp;&nbsp;data-source="<em>warehouse.revenue</em>"<br>
+          &nbsp;&nbsp;data-query-id="<em>net_revenue_yoy</em>"<br>
+          &nbsp;&nbsp;data-metric="<em>enterprise_arr</em>"<br>
+          &nbsp;&nbsp;data-stale-after="<em>24h</em>"&gt;<br>
+          &nbsp;&nbsp;&lt;h1&gt;$4.8M ARR&lt;/h1&gt;<br>
+          &lt;/section&gt;
+        </div>
+      </div>
+      <p class="source-note">协议说明：query-id 和 metric-id 是安全句柄；裸 SQL 与凭证留在服务端。</p>
+    </section>
+
+    <section class="slide" data-source="fundraising.plan" data-query-id="seed_use_of_funds" data-metric="milestones_to_series_a">
+      <p class="kicker">融资诉求</p>
+      <h2>融资 240 万美元，让每份财务 deck 都能刷新。</h2>
+      <div class="ask-box">
+        <div><strong>9 个月</strong><span>交付查询注册表、权限系统和可导出版渲染</span></div>
+        <div><strong>30 个试点</strong><span>A 轮前证明：财务团队真实使用实时董事会材料</span></div>
+      </div>
+      <p class="source-note">假设：种子轮计划模型，14 人团队，跑到 2027 年 Q1。本测试 deck 使用示意性融资数字。</p>
+    </section>
+
+    <div class="counter" id="counter">1 / 6</div>
+    <div class="progress" aria-hidden="true"><span id="progress"></span></div>
+  </main>
+
+  <script>
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    const progress = document.getElementById('progress');
+    const counter = document.getElementById('counter');
+    let currentIndex = 0;
+
+    function show(index) {
+      slides[currentIndex].classList.remove('current');
+      currentIndex = Math.max(0, Math.min(index, slides.length - 1));
+      slides[currentIndex].classList.add('current');
+      progress.style.width = `${((currentIndex + 1) / slides.length) * 100}%`;
+      counter.textContent = `${currentIndex + 1} / ${slides.length}`;
+    }
+
+    document.addEventListener('keydown', (event) => {
+      if (['ArrowRight', ' ', 'Enter'].includes(event.key)) show(currentIndex + 1);
+      if (event.key === 'ArrowLeft') show(currentIndex - 1);
+    });
+
+    document.addEventListener('click', (event) => {
+      show(event.clientX > window.innerWidth / 2 ? currentIndex + 1 : currentIndex - 1);
+    });
+
+    show(0);
+  </script>
+</body>
+</html>

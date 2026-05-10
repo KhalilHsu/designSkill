@@ -113,6 +113,8 @@ Pass when:
 - Tone matches the target audience and page type.
 - Proper nouns, product names, brand names, and technical terms are preserved correctly.
 - Chinese copy reads naturally when the prompt is Chinese.
+- Chinese UI labels, buttons, empty states, table headers, chart labels, and source notes are also localized.
+- Chinese punctuation, units, and date/number labels feel native to the page context.
 
 Fix when:
 
@@ -120,6 +122,9 @@ Fix when:
 - Copy sounds machine-translated.
 - Product terminology is inconsistent across sections.
 - Interface labels use a different language from the main page without reason.
+- Buttons or nav labels remain English because the implementation stack is English.
+- Chinese text overflows because the layout assumed English word length and line breaks.
+- Technical identifiers were translated and became unstable.
 
 ## Code Quality
 
