@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PM Promotion Deck</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Space+Grotesk:wght@700&display=swap');
+
+    :root {
+      /* Neo-Brutalist / Startup Vibe Tokens */
+      --bg: #0f172a;
+      --bg-muted: #1e293b;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #3b82f6; /* Vibrant Blue */
+      --accent-glow: rgba(59, 130, 246, 0.3);
+      --aspect-ratio: 16 / 9;
+    }
+
+    body {
+      margin: 0;
+      background: #050505;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      font-family: 'Inter', sans-serif;
+      color: var(--text-main);
+    }
+
+    #deck {
+      width: 100vw;
+      height: 100vh;
+      /* Lock to 16:9 Aspect Ratio */
+      max-width: calc(100vh * (16 / 9));
+      max-height: calc(100vw * (9 / 16));
+      position: relative;
+      overflow: hidden;
+      background: var(--bg);
+      box-shadow: 0 0 50px rgba(0,0,0,0.8);
+    }
+
+    /* Abstract Atmosphere Layer */
+    #deck::before {
+      content: '';
+      position: absolute;
+      top: -20%; right: -10%;
+      width: 60vw; height: 60vw;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+      filter: blur(80px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      padding: 6vw 8vw;
+      box-sizing: border-box;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease-in-out;
+      display: flex;
+      flex-direction: column;
+      z-index: 1;
+    }
+
+    .slide.current {
+      opacity: 1;
+      pointer-events: auto;
+      z-index: 2;
+    }
+
+    /* Typography Hierarchy (Viewport Scaled) */
+    h1, h2, h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      margin: 0 0 0.5em 0;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-title { font-size: clamp(4rem, 8vw, 10rem); color: var(--text-main); }
+    .slide-title { font-size: clamp(2.5rem, 5vw, 6rem); color: var(--accent); }
+    .big-number { font-size: clamp(8rem, 15vw, 20rem); font-weight: 700; line-height: 0.9; margin-bottom: 0.1em; color: var(--text-main); }
+    .number-label { font-size: clamp(1.5rem, 3vw, 4rem); color: var(--text-muted); }
+    
+    p { font-size: clamp(1.2rem, 2vw, 2.5rem); line-height: 1.4; color: var(--text-muted); max-width: 90%; margin-top: 0;}
+
+    /* Layout Archetypes */
+    .hero { justify-content: center; align-items: center; text-align: center; }
+    .hero p { max-width: 60%; margin: 0 auto; }
+    
+    .split { display: grid; grid-template-columns: 1fr 1fr; gap: 6vw; height: 100%; align-items: center; }
+    
+    .center-content { display: flex; flex-direction: column; justify-content: center; height: 100%; }
+
+    .grid-layout {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3vw;
+      margin-top: auto;
+      margin-bottom: auto;
+    }
+    
+    .grid-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.05);
+      padding: 2.5vw;
+      border-radius: 1vw;
+    }
+    .grid-card h3 { font-size: clamp(1.5rem, 2.5vw, 3rem); color: var(--text-main); }
+    .grid-card p { font-size: clamp(1.1rem, 1.6vw, 2rem); margin-bottom: 0; width: 100%;}
+
+    /* CSS Native Data Chart */
+    .chart-container {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-around;
+      height: 40vh;
+      border-bottom: 2px solid var(--bg-muted);
+      padding-bottom: 1vw;
+      width: 100%;
+    }
+    .bar-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 25%;
+      gap: 1vw;
+    }
+    .bar {
+      width: 100%;
+      background: var(--bg-muted);
+      border-radius: 0.5vw 0.5vw 0 0;
+    }
+    .bar.highlight { background: var(--accent); }
+    .bar-label { font-size: clamp(1rem, 1.5vw, 2rem); color: var(--text-muted); font-family: 'Space Grotesk', sans-serif;}
+    .bar-value { font-size: clamp(1.5rem, 2.5vw, 3.5rem); color: var(--text-main); font-weight: bold; margin-bottom: 0.5vw;}
+
+    /* Progress Bar */
+    #progress {
+      position: absolute;
+      bottom: 0; left: 0;
+      height: 6px;
+      background: var(--accent);
+      width: 0%;
+      transition: width 0.3s ease;
+      z-index: 10;
+    }
+    
+    /* Navigation Hint */
+    .nav-hint {
+      position: absolute;
+      bottom: 2vw;
+      right: 2vw;
+      font-size: 1vw;
+      color: var(--text-muted);
+      opacity: 0.5;
+    }
+  </style>
+</head>
+<body>
+  <main id="deck">
+    
+    <!-- Slide 1: Hero Hook -->
+    <section class="slide current hero">
+      <h1 class="hero-title">Beyond Execution.</h1>
+      <p>Business Case for Promotion to Senior Product Manager</p>
+      <p style="color: var(--accent); margin-top: 2vw; font-weight: 500; font-size: clamp(1.5rem, 2.5vw, 3rem);">Q3 Performance Review</p>
+      <div class="nav-hint">Press Space or Arrow Keys to navigate</div>
+    </section>
+
+    <!-- Slide 2: The TL;DR Split -->
+    <section class="slide split">
+      <div>
+        <h2 class="slide-title">Driving Top-Line Growth</h2>
+        <p>Over the past 12 months, I transitioned from managing individual features to driving the core Enterprise Activation engine, directly impacting our B2B revenue.</p>
+      </div>
+      <div class="grid-layout" style="grid-template-columns: 1fr; gap: 2vw;">
+        <div class="grid-card">
+          <h3>Launched Enterprise SSO</h3>
+          <p>Delivered 3 weeks ahead of schedule across 5 squads.</p>
+        </div>
+        <div class="grid-card" style="border-color: var(--accent); background: rgba(59, 130, 246, 0.05);">
+          <h3>Moved the Needle</h3>
+          <p>Increased Day-30 enterprise retention by 24%.</p>
+        </div>
+        <div class="grid-card">
+          <h3>Mentored the Team</h3>
+          <p>Successfully onboarded and coached 2 Associate PMs.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 3: The Big Number (Punchline First) -->
+    <section class="slide center-content">
+      <div style="text-align: center;">
+        <div class="big-number">$4.2M</div>
+        <div class="number-label">Net New ARR Unlocked via Enterprise Integrations in H1</div>
+      </div>
+    </section>
+
+    <!-- Slide 4: Chart Split (The Solution/Impact) -->
+    <section class="slide split">
+      <div>
+        <h2 class="slide-title">Frictionless Onboarding</h2>
+        <p>By redesigning the activation flow, we removed 3 unnecessary setup steps and automated tenant provisioning for large clients.</p>
+      </div>
+      <div class="center-content">
+        <div class="chart-container">
+          <div class="bar-group">
+            <div class="bar-value">12%</div>
+            <div class="bar" style="height: 25%;"></div>
+            <div class="bar-label">Q4 (Before)</div>
+          </div>
+          <div class="bar-group">
+            <div class="bar-value">36%</div>
+            <div class="bar highlight" style="height: 75%;"></div>
+            <div class="bar-label">Q2 (After)</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 5: Grid (Leadership beyond squad) -->
+    <section class="slide">
+      <h2 class="slide-title">Operating at the Next Level</h2>
+      <p>Demonstrating impact and establishing processes beyond my immediate product squad.</p>
+      <div class="grid-layout">
+        <div class="grid-card">
+          <h3>Cross-Functional Sync</h3>
+          <p>Established the weekly Eng/Sales alignment sync, reducing feature delivery friction.</p>
+        </div>
+        <div class="grid-card">
+          <h3>Product Analytics</h3>
+          <p>Built the core Mixpanel dashboards now adopted as standard by all 4 product squads.</p>
+        </div>
+        <div class="grid-card">
+          <h3>Strategic Planning</h3>
+          <p>Co-authored the 2027 Platform Strategy memo with the Director of Engineering.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 6: Hero Ask -->
+    <section class="slide hero">
+      <h1 class="slide-title" style="font-size: clamp(3rem, 7vw, 9rem); color: var(--text-main);">The Next Play.</h1>
+      <p>As a Senior PM, I will take ownership of the Platform Infrastructure domain, driving our API-first strategy and accelerating go-to-market for enterprise partners.</p>
+    </section>
+
+    <!-- Progress Indicator -->
+    <div id="progress"></div>
+  </main>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const progressBar = document.getElementById('progress');
+    let currentIndex = 0;
+
+    function updateProgress() {
+      const progress = (currentIndex / (slides.length - 1)) * 100;
+      progressBar.style.width = `${progress}%`;
+    }
+
+    function goToSlide(index) {
+      slides[currentIndex].classList.remove('current');
+      currentIndex = Math.max(0, Math.min(index, slides.length - 1));
+      slides[currentIndex].classList.add('current');
+      updateProgress();
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'Space' || e.key === 'Enter') goToSlide(currentIndex + 1);
+      if (e.key === 'ArrowLeft') goToSlide(currentIndex - 1);
+    });
+
+    // Click navigation (Right half = next, Left half = prev)
+    document.addEventListener('click', (e) => {
+      if (e.clientX > window.innerWidth / 2) goToSlide(currentIndex + 1);
+      else goToSlide(currentIndex - 1);
+    });
+
+    // Init
+    updateProgress();
+  </script>
+</body>
+</html>
