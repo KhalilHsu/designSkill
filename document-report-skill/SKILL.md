@@ -1,19 +1,21 @@
 ---
 name: document-report-skill
-description: Use when generating long-form documents, whitepapers, research reports, or PDFs. Produces professional, academic, or corporate long-form content by first defining the document structure, enforcing readability rules, and structuring citations/data before outputting Markdown, HTML (for PDF printing), or LaTeX.
+description: Use when generating long-form documents, Chinese or multilingual reports, whitepapers, research reports, business/data reports, technical specifications, or PDF-ready artifacts. Produces professional, readable, source-aware reports by defining structure, audience, visible language, evidence, citations/data, and print/web rendering before outputting Markdown, HTML, or LaTeX.
 ---
 
 # Document & Report Skill
 
-Use this skill when the user asks to generate a whitepaper, research report, technical specification, or PDF-ready document. The goal is deep-reading comfort, authoritative structure, and precise information hierarchy.
+Use this skill when the user asks to generate a whitepaper, research report, technical specification, business analysis, data report, or PDF-ready document. Default visible report language to the user's prompt language unless they ask otherwise. The goal is deep-reading comfort, authoritative structure, precise information hierarchy, and clear evidence handling.
 
 This skill uses progressive disclosure. Do not load every reference by default. First identify the document type, target format, and data sources, then read only the references that are needed.
 
 ## Core Workflow
 
-1. Clarify the scope and format:
-   - Is this an academic paper, a B2B marketing whitepaper, a technical audit, or a financial report?
-   - What is the final rendering target? (Markdown for Pandoc/PDF, HTML with CSS Paged Media, LaTeX, or standard Markdown).
+1. Resolve scope and format:
+   - Infer the document type, audience, visible language, final rendering target, and evidence sources from the prompt when possible.
+   - Ask only when ambiguity would materially change the report, such as academic paper vs. business memo, Markdown vs. PDF-ready HTML, or sourced analysis vs. illustrative draft.
+   - If the user asks in Chinese, default visible report content to Chinese.
+   - Track the data sources, citations, screenshots, tables, assumptions, and missing evidence that support the report.
 
 2. Establish the Document Skeleton:
    - Define the front matter (Title, Abstract/Executive Summary), Table of Contents, Main Sections, and Appendices/References.
@@ -34,12 +36,12 @@ This skill uses progressive disclosure. Do not load every reference by default. 
    - Read `references/layout-grids.md`.
 
 6. Output the Document:
-   - Generate the content. If using Markdown for PDF, ensure YAML frontmatter is present. If using HTML, utilize `@tailwindcss/typography` or print media queries.
+   - Generate the content. If using Markdown for Pandoc/PDF metadata, include YAML frontmatter. If using HTML, use readable document CSS and print-aware rules.
    - Read `references/implementation-patterns.md`.
 
 7. Final Quality Check:
    - Read `references/quality-rubric.md`.
-   - Fix logical orphans/widows, inconsistent heading depths, or uncaptioned data.
+   - Fix logical orphans/widows, inconsistent heading depths, uncaptioned data, English labels in Chinese reports, or unsupported claims.
 
 ## Reference Routing
 
@@ -51,3 +53,11 @@ Read references based on the current document generation phase:
 - Table formatting, figure captions, citation handling: read `references/data-figures-tables.md`.
 - Markdown to PDF workflows, HTML print styles, Tailwind Prose: read `references/implementation-patterns.md`.
 - Final check for professional document standards: read `references/quality-rubric.md`.
+
+## Language Behavior
+
+- Default visible report content to the user's prompt language.
+- If the user asks in Chinese, write Chinese titles, section headings, body copy, captions, table labels, source notes, and footnotes by default.
+- Preserve product names, dataset names, table names, query IDs, metric IDs, filenames, URLs, and code identifiers.
+- Use Chinese punctuation, natural Chinese units, and Chinese source labels in Chinese reports.
+- Avoid machine-translated prose. Rewrite for Chinese long-form reading rhythm.
