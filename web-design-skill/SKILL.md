@@ -7,6 +7,8 @@ description: Use when creating or improving high-quality web pages, landing page
 
 Use this skill when the user asks to generate, redesign, polish, or implement a web page or web UI. The goal is production-quality code with a clear visual point of view, not generic template output.
 
+This skill uses progressive disclosure. Do not load every reference by default. First identify the page type, data source, stack, and main design problem, then read only the references that are needed.
+
 ## Core Workflow
 
 1. Clarify the target when ambiguity would materially change the result:
@@ -14,47 +16,70 @@ Use this skill when the user asks to generate, redesign, polish, or implement a 
    - Prefer short choice-based questions, but do not block on clarification when a reasonable default can be chosen.
    - If proceeding with assumptions, state them briefly before implementation.
    - Confirm the technical stack: plain HTML/CSS, React, Next.js, Tailwind, or existing project conventions.
-   - Identify the primary audience, required content, and desired visual direction.
+   - Identify the primary audience, required content, data source, and desired visual direction.
 
-2. Choose a visual direction before writing code.
+2. Identify data and assets before layout:
+   - Prefer user-provided business data, schema, records, fields, images, and existing project assets over invented content.
+   - Do not invent API calls, dependencies, local image paths, or business fields that are not provided or present in the project.
+   - If data shape matters, read `references/data-driven-generation.md` before choosing layout.
+   - Only create mock content when the user asks for a demo, no real data exists, or placeholders are needed to preview the design.
+
+3. Choose a visual direction before writing code.
    - If the user gave a style, honor it.
    - If not, pick a fitting direction and state it briefly in implementation notes.
+   - Keep aesthetic language such as premium, cinematic, editorial, playful, calm, precise, or expressive, but translate it into visible choices in layout, typography, color, imagery, and density.
    - Read `references/style-archetypes.md` when selecting or combining visual styles.
 
-3. Define design tokens before composing the UI.
+4. Define design tokens before composing the UI.
    - Colors: canvas, surfaces, text, borders, accents, semantic states.
    - Typography: display, headings, body, labels, captions, line-height, letter spacing.
    - Spacing: base unit, section rhythm, grid gap, component padding.
    - Shape and elevation: radii, borders, shadows, surface layering.
    - Read `references/visual-systems.md` and `references/typography-color.md` when token choices matter.
 
-4. Build information hierarchy and layout composition.
+5. Build information hierarchy and layout composition.
    - Establish primary message or task.
    - Create a clear top-to-bottom rhythm.
    - Use contained, full-bleed, split, grid, and card layouts intentionally.
    - Read `references/layout-composition.md` for page structure decisions.
 
-5. Implement components with real states.
+6. Implement components with real states.
    - Buttons, nav, cards, forms, badges, tabs, tables, screenshots, empty states, or content blocks as appropriate.
    - Include hover, focus, active, disabled, loading, and responsive states when relevant.
    - Read `references/components-states.md` and `references/interaction-motion.md` when interaction detail matters.
 
-6. Make it responsive and accessible.
+7. Make it responsive and accessible.
    - Use semantic HTML.
    - Preserve keyboard focus.
    - Meet contrast requirements.
    - Respect reduced-motion preferences.
    - Read `references/responsive-accessibility.md` for constraints.
 
-7. Output working code.
+8. Output working code.
    - Follow existing project conventions if editing a repo.
    - Prefer CSS variables or design tokens over one-off hard-coded values.
-   - Do not rely on unavailable brand fonts or image assets unless provided.
+   - Do not rely on unavailable brand fonts, image assets, component libraries, or API endpoints.
    - Read `references/implementation-patterns.md` for code structure.
 
-8. Self-check before finalizing.
+9. Self-check before finalizing.
    - Read `references/quality-rubric.md`.
-   - Fix obvious template feel, weak hierarchy, inconsistent spacing, missing states, poor contrast, or brittle responsive behavior.
+   - Fix obvious template feel, weak hierarchy, inconsistent spacing, missing states, poor contrast, brittle responsive behavior, fake data access, missing dependencies, or broken assets.
+
+## Reference Routing
+
+Read references based on the current design problem:
+
+- Data-driven pages, database records, generated pages, dashboards, score pages, profile/detail pages: read `references/data-driven-generation.md`.
+- Visual direction, mood, brand feel, or avoiding generic templates: read `references/style-archetypes.md` and, if needed, `references/design-principles.md`.
+- Tokens, surfaces, density, imagery model, radius, elevation: read `references/visual-systems.md`.
+- Typography scale, font choice, color roles, contrast, gradients: read `references/typography-color.md`.
+- Page structure, section order, hero, grids, app shells, dense layouts: read `references/layout-composition.md`.
+- Buttons, cards, navigation, forms, tables, loading/empty/error states: read `references/components-states.md`.
+- Hover, focus, active, loading motion, scroll behavior, reduced motion: read `references/interaction-motion.md`.
+- Mobile behavior, semantic HTML, keyboard access, ARIA, contrast: read `references/responsive-accessibility.md`.
+- Plain HTML/CSS, React, Next.js, Tailwind, dependency and asset handling: read `references/implementation-patterns.md`.
+- Final check before delivery: read `references/quality-rubric.md`.
+- Source provenance and brand abstraction history: read `references/source-notes.md` only when asked about where the design guidance came from.
 
 ## Language And Copy Rules
 
@@ -74,6 +99,7 @@ Use this skill when the user asks to generate, redesign, polish, or implement a 
 - Avoid default SaaS sameness: white page, purple CTA, generic cards, system font, no atmosphere.
 - A page should have one dominant visual idea: precision, editorial calm, playful productivity, cinematic product focus, command-center utility, warm craft, or another coherent direction.
 - More color is not automatically more designed. More restraint is not automatically more premium.
+- Do not flatten aesthetic direction into fixed templates. Use aesthetic words as intent, then make visible design choices that express that intent.
 
 ## Output Standards
 
@@ -82,10 +108,12 @@ Use this skill when the user asks to generate, redesign, polish, or implement a 
 - Prefer expressive but maintainable CSS.
 - Avoid placeholder-only layouts unless the user specifically requests a wireframe.
 - For frontend repo edits, run the available formatter/test/build commands when feasible.
+- For data-backed products, preserve and use the provided business fields instead of replacing them with generic mock content.
 
 ## Reference Map
 
 - `references/design-principles.md`: universal principles distilled from the sources.
+- `references/data-driven-generation.md`: choosing structure from business data, schema, fields, media, density, and relationships.
 - `references/style-archetypes.md`: reusable visual directions derived from brand references.
 - `references/visual-systems.md`: surfaces, space, shape, elevation, imagery, and density.
 - `references/layout-composition.md`: page structure and section rhythm.

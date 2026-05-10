@@ -2,9 +2,25 @@
 
 Use this before finalizing a generated web page.
 
+Treat this as a pass/fix checklist, not a scoring essay. Fix any failed item that affects the requested output.
+
+## Data And Inputs
+
+Pass when:
+
+- The page uses provided business data, schema, records, fields, and media where available.
+- The layout follows the data shape and user task.
+- Missing fields are handled without fabricating precise facts.
+
+Fix when:
+
+- Real data was replaced with generic mock content.
+- The implementation invents API endpoints, fields, dependencies, or local asset paths.
+- A data-heavy page was forced into a generic marketing layout.
+
 ## Visual Direction
 
-Score high when:
+Pass when:
 
 - The page has a clear visual idea.
 - Tokens, layout, and components support the same mood.
@@ -18,7 +34,7 @@ Fix when:
 
 ## Hierarchy
 
-Score high when:
+Pass when:
 
 - The primary message or task is immediately clear.
 - Text sizes and weights create obvious priority.
@@ -32,7 +48,7 @@ Fix when:
 
 ## System Coherence
 
-Score high when:
+Pass when:
 
 - Spacing follows a scale.
 - Radii are consistent.
@@ -47,7 +63,7 @@ Fix when:
 
 ## Craft
 
-Score high when:
+Pass when:
 
 - Details such as hover, focus, active, disabled, empty, and loading states are present when relevant.
 - Typography has tuned line-height and tracking.
@@ -61,7 +77,7 @@ Fix when:
 
 ## Responsiveness
 
-Score high when:
+Pass when:
 
 - Mobile layout is deliberately reorganized.
 - Text remains readable.
@@ -76,7 +92,7 @@ Fix when:
 
 ## Accessibility
 
-Score high when:
+Pass when:
 
 - Semantic HTML is used.
 - Contrast is adequate.
@@ -91,7 +107,7 @@ Fix when:
 
 ## Language Fit
 
-Score high when:
+Pass when:
 
 - Page copy follows the user's requested or implied language.
 - Tone matches the target audience and page type.
@@ -107,17 +123,20 @@ Fix when:
 
 ## Code Quality
 
-Score high when:
+Pass when:
 
 - The code is runnable.
 - Tokens are reusable.
 - Components are named by role.
 - Styles are maintainable.
+- Dependencies and component libraries are present or explicitly added.
 
 Fix when:
 
 - One-off values dominate.
 - The implementation references missing assets.
+- The implementation assumes unavailable component libraries or icon packages.
+- The implementation fakes API calls.
 - Layout depends on fragile fixed heights or absolute positioning.
 
 ## Minimum Bar
@@ -126,6 +145,9 @@ Do not deliver until:
 
 - The page has a named visual direction.
 - The design token set is coherent.
+- Provided business data is used when available.
 - The main layout works on desktop and mobile.
 - Interactive elements have visible states.
+- Complex components respect existing project dependencies or use a simpler reliable pattern.
+- There are no broken image paths, fake APIs, or assumed missing dependencies.
 - The result is better than a generic template.

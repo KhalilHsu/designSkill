@@ -2,6 +2,8 @@
 
 Use these as starting points, not brand copies. Combine at most two archetypes unless the user explicitly asks for maximal experimentation.
 
+Keep the aesthetic words. They carry useful taste direction. Also make the mood visible through concrete choices in layout, type, color, imagery, density, and motion.
+
 ## Precision Product Showcase
 
 Inspired by high-contrast product systems.
@@ -12,6 +14,7 @@ Inspired by high-contrast product systems.
 - Layout: full-bleed hero, centered headline, large product visual, clean alternating dark/light sections.
 - Shapes: large soft cards, pill actions, minimal shadows.
 - Best for: hardware, AI infrastructure, developer tools, security, premium software.
+- Make it visible: one dominant product or system visual, crisp contrast, restrained palette, precise alignment, few decorative elements.
 - Avoid: too many colors, generic gradients, busy card grids.
 
 ## Luxury Gallery
@@ -24,6 +27,7 @@ Inspired by product-gallery and craft-led systems.
 - Layout: large negative space, product/image as hero, slow section rhythm, sparse copy.
 - Shapes: few radii, limited soft elements, strong typographic alignment.
 - Best for: premium products, design tools, studios, hardware, high-end services.
+- Make it visible: large visual anchor, generous negative space, quiet surfaces, careful cropping, limited CTAs, typography that feels deliberate.
 - Avoid: stock icons, noisy backgrounds, excessive shadows.
 
 ## Approachable Workflow
@@ -36,6 +40,7 @@ Inspired by collaborative productivity systems.
 - Layout: centered hero, product demo block, alternating feature sections, grids and cards.
 - Shapes: medium radii, subtle shadows, comfortable spacing.
 - Best for: productivity, collaboration, operations, internal tools, SMB products.
+- Make it visible: clear product preview, understandable categories, friendly spacing, direct labels, helpful visual grouping.
 - Avoid: using accent colors for core text or too many equally loud cards.
 
 ## Playful Workspace
@@ -48,6 +53,7 @@ Inspired by colorful work-management systems.
 - Layout: grid-heavy, colorful cards, pill CTAs, category badges, strong section breaks.
 - Shapes: large pill buttons, rounded cards, clear borders.
 - Best for: project tools, education, onboarding, lightweight apps, community products.
+- Make it visible: modular rhythm, color used for categories or emphasis, expressive but readable headers, tactile controls.
 - Avoid: turning every element into a different color; color must encode grouping or emphasis.
 
 ## Dark Command Center
@@ -60,6 +66,7 @@ Inspired by precise dark-mode app systems.
 - Layout: dark hero, light UI screenshots/cards, contained grids, dashboard-like modules.
 - Shapes: modest radii, low/no shadows, surface-based depth.
 - Best for: AI, devtools, analytics, infra, finance, technical products.
+- Make it visible: dashboard-like surfaces, high-legibility metrics, sharp grouping, restrained glow or vivid accents only where they signal importance.
 - Avoid: muddy contrast, too many neon accents, unreadable gray text.
 
 ## Expressive Collaboration
@@ -72,6 +79,7 @@ Inspired by communication and teamwork brands.
 - Layout: bold hero, announcement/banner area, proof sections, alternating copy and screenshots.
 - Shapes: functional buttons, rounded cards, occasional pill secondary controls.
 - Best for: team tools, communication, AI assistants, HR, support, knowledge products.
+- Make it visible: human copy, confident brand color, proof or collaboration moments, rhythm that alternates people/process/product.
 - Avoid: decorative gradients that fight the content.
 
 ## Editorial Minimal
@@ -84,6 +92,7 @@ General-purpose style for content-heavy pages.
 - Layout: article-like hierarchy, generous margins, text-first sections, occasional callout panels.
 - Shapes: subtle borders, light surfaces, minimal shadows.
 - Best for: docs, reports, thought leadership, feature explanations, case studies.
+- Make it visible: text-first hierarchy, strong line length control, restrained callouts, few but meaningful surfaces.
 - Avoid: app-card clutter and excessive CTAs.
 
 ## Selection Guidance

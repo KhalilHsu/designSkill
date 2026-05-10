@@ -1,5 +1,14 @@
 # Typography And Color
 
+Read this to choose type roles and color roles. These ranges are guidance, not mandatory defaults; adjust them to the content density, visual direction, and existing project system.
+
+Output after reading:
+
+- Type role list.
+- Color role list.
+- Accent usage rules.
+- Contrast risks to check.
+
 ## Typography
 
 Define type roles:

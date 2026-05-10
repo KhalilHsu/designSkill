@@ -47,7 +47,11 @@ For React:
 - Use props for repeated content blocks.
 - Keep design tokens in CSS or theme files, not inline style objects by default.
 - Avoid unnecessary memoization unless the existing codebase uses it or performance requires it.
-- For new React code without an existing design system, build semantic, accessible components using headless-component principles. Use libraries such as Radix UI or shadcn/ui only when the project already uses them or the user asks for them.
+- Check existing project dependencies and component conventions before choosing primitives.
+- Use existing design-system components when present.
+- Simple components such as buttons, cards, badges, section headers, and static rows can be handwritten.
+- Complex interactive components such as dialogs, dropdowns, popovers, comboboxes, tooltips, and full keyboard-managed tabs should use existing Radix UI, shadcn/ui, Headless UI, or project primitives when available.
+- Do not assume Radix UI, shadcn/ui, Tailwind, or lucide-react are installed. If a dependency is not present and cannot be added, use a simpler native or static pattern instead of a fragile custom focus trap.
 
 ## Next.js
 
@@ -67,6 +71,18 @@ When using Tailwind:
 - Avoid long inconsistent class strings with one-off values.
 - Use component extraction for repeated patterns.
 - Do not default to standard purple SaaS styling.
+
+## Vanilla CSS And CSS Modules
+
+When the project does not use Tailwind:
+
+- Organize CSS in this order: tokens, base elements, layout primitives, components, states, responsive rules.
+- Put reusable tokens in `:root`, a theme file, or the existing project token layer.
+- Name classes by component role and structure, not visual decoration alone.
+- Use state selectors such as `[data-state="loading"]`, `[aria-current="page"]`, `:hover`, `:focus-visible`, and `[disabled]`.
+- Keep layout utilities sparse and intentional.
+- Avoid recreating Tailwind as many one-off utility classes unless the project already follows a utility-first pattern.
+- For CSS Modules, keep tokens global or imported from the project theme; keep module classes local to the component.
 
 ## CSS Quality
 
@@ -89,12 +105,26 @@ Avoid:
 
 ## Asset Handling
 
-If assets are missing:
+Use assets in this order:
 
-- Build abstract CSS visuals.
-- Use gradients, frames, and mock UI panels.
-- Use inline SVG icons when useful.
-- Do not reference nonexistent image paths.
+- User-provided business data: image fields, avatars, product photos, covers, screenshots, media URLs.
+- Existing project assets.
+- Generated or explicitly stable external assets when appropriate for a demo or prototype.
+- Styled CSS visuals, frames, and mock UI panels when real imagery is unavailable.
+- Inline SVG icons only when useful and not better served by an existing icon library.
+
+Do not reference nonexistent image paths. Do not use random external images for production-like output unless the user accepts that tradeoff.
+
+## Data And Mocking
+
+For data-backed products:
+
+- Preserve the provided schema and business fields.
+- Do not replace real data with generic sample records.
+- Do not fake network requests to nonexistent APIs.
+- If mock data is necessary for a standalone demo, keep it structured and close to the expected business data.
+- Add loading, empty, or error states only when they are relevant to the requested UI or existing product flow.
+- Unless the user asks for an interactive demo, model loading/empty/error as rendered state slices or externally supplied props, not internal timers or fake lifecycle flows.
 
 ## Final Verification
 

@@ -1,5 +1,14 @@
 # Components And States
 
+Read this when choosing or implementing visible UI components. Use only states that match the requested product flow; do not add artificial async behavior just to show every possible state.
+
+Output after reading:
+
+- Component list.
+- Required states.
+- Interaction affordances.
+- Empty/loading/error handling when relevant.
+
 ## Component Anatomy
 
 Every component should define:
@@ -101,3 +110,13 @@ High-quality UI includes non-happy paths:
 - Empty states explain what happened and the next action.
 - Loading states preserve layout and avoid jarring shifts.
 - Error states are visible, specific, and actionable.
+
+For data-backed pages, base these states on the real product flow. Do not invent network failure states for a static or server-rendered view unless the product actually needs them.
+
+Unless the user asks for an interactive demo, prefer static visual state slices or externally controlled state props over timers, fake async flows, or component lifecycle simulation.
+
+Examples:
+
+- Static markup: use attributes such as `data-state="loading"` or `aria-busy="true"` when rendering a state slice.
+- React: prefer props such as `<Panel state="loading" />` or real product data flags over local `useState` plus `setTimeout`.
+- Demo-only interactions: use simple state toggles only when the requested output needs the user to switch between states.

@@ -1,5 +1,15 @@
 # Layout Composition
 
+Read this to choose page structure, section order, and grid behavior. Do not treat these modes as fixed templates; choose based on the user's task, content, and data shape.
+
+Output after reading:
+
+- Page structure.
+- First-screen composition.
+- Section order or app shell regions.
+- Desktop grid behavior.
+- Mobile reflow behavior.
+
 ## Page Rhythm
 
 A strong page has a readable rhythm:
@@ -22,6 +32,7 @@ Use composition modes intentionally:
 - Full-bleed band: best for mood shifts, product showcases, major transitions.
 - Sidebar/app shell: best for persistent navigation and workflows.
 - Dense table/card hybrid: best for management, analytics, operations, and data products.
+- Master-detail: best for generated pages that need a selected record plus related records, actions, or context.
 
 ## Container Width
 
@@ -77,6 +88,8 @@ A hero needs:
 - Visual anchor: product image, abstract system, gradient, code panel, data view, or strong typography.
 
 Avoid hero sections that are only a centered headline and generic button unless the typography and atmosphere are strong enough to carry the page.
+
+For data-backed pages, the first screen may be a record masthead, score summary, dashboard header, or primary work area instead of a marketing hero.
 
 ## Content Blocks
 

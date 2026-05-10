@@ -1,5 +1,15 @@
 # Visual Systems
 
+Read this to choose the visual system after the page job, data source, and visual direction are known.
+
+Output after reading:
+
+- Surface model.
+- Density level.
+- Shape/elevation language.
+- Imagery or graphics strategy.
+- Token groups needed by the implementation.
+
 ## Token Groups
 
 Define tokens before styling components:
@@ -63,13 +73,14 @@ Use shadows sparingly. A page with every card floating usually feels cheap.
 
 Pick imagery behavior deliberately:
 
+- Business data images: best when records include covers, avatars, screenshots, product photos, or media URLs.
 - Product screenshots: best for software, dashboards, tools.
 - Abstract graphics: best for atmosphere or complex concepts.
 - Product photography: best for physical or premium products.
 - Icons: best for scanning and repeated features.
 - Gradient washes: best for hero atmosphere or section transition.
 
-If assets are unavailable, create styled placeholders or CSS-built visuals that match the system rather than using broken image assumptions.
+If assets are unavailable, create styled placeholders or CSS-built visuals that match the system rather than using broken image assumptions. Do not let fallback visuals override real business media.
 
 ## Density
 
