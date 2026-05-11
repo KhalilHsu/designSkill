@@ -35,19 +35,6 @@ Each skill is composed of:
 1. **`SKILL.md`**: The core instruction set that the AI agent reads to adopt the persona and workflow of a professional designer.
 2. **`references/`**: A library of Markdown files containing specific design principles, implementation patterns, quality rubrics, and token definitions. The agent references these when making design decisions.
 
-## 🚀 Usage (For Gemini CLI / Bullet)
-
-To install these skills locally for your Gemini CLI agent, you can typically link or copy the skill directories into your `~/.agents/skills/` folder.
-
-```bash
-# Example (adjust path based on your CLI setup)
-cp -r web-design-skill ~/.agents/skills/
-```
-
-Once installed, simply prompt your agent:
-- *"Use the web design skill to build a landing page for a SaaS product."*
-- *"Generate a pitch deck for a new feature."*
-
 ## 🛡️ Safety & Privacy
 This repository has been audited and contains **no** API keys, personal credentials, or internal company telemetry. It is completely safe for public use.
 
