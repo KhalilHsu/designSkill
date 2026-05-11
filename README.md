@@ -26,9 +26,7 @@ Guides the agent in crafting readable, professional long-form documents, specs, 
 ```text
 ├── web-design-skill/         # Web page design capabilities and references
 ├── presentation-deck-skill/  # Slide and presentation generation
-├── document-report-skill/    # Long-form document formatting
-├── downloadedMD/             # Design token references from top tech companies (Airtable, Notion, Slack, etc.)
-└── test-pages/               # Example outputs and HTML templates generated using these skills
+└── document-report-skill/    # Long-form document formatting
 ```
 
 ## 🧠 How it Works
