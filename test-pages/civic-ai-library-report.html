@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>城市图书馆 AI 服务试点评估报告</title>
+  <style>
+    :root {
+      --ink: #202124;
+      --muted: #5f6368;
+      --line: #d9dce1;
+      --paper: #fbfaf7;
+      --accent: #1d5c63;
+      --accent-soft: #e4f0ee;
+      --warn: #8f4f21;
+      --font-serif: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "STSong", Georgia, serif;
+      --font-sans: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", "Source Han Sans SC", system-ui, sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: #ece8df;
+      color: var(--ink);
+      font-family: var(--font-serif);
+      line-height: 1.78;
+    }
+
+    .report {
+      max-width: 980px;
+      margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      padding: 64px 56px 88px;
+    }
+
+    .cover {
+      min-height: 58vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 40px;
+    }
+
+    .kicker, .meta, figcaption, .source, th {
+      font-family: var(--font-sans);
+    }
+
+    .kicker {
+      color: var(--accent);
+      font-weight: 700;
+      letter-spacing: 0;
+      margin: 0 0 16px;
+    }
+
+    h1 {
+      font-size: clamp(36px, 6vw, 58px);
+      line-height: 1.12;
+      letter-spacing: 0;
+      max-width: 11em;
+      margin: 0 0 24px;
+    }
+
+    h2 {
+      font-size: 28px;
+      line-height: 1.32;
+      letter-spacing: 0;
+      margin: 48px 0 18px;
+      break-after: avoid;
+    }
+
+    h3 {
+      font-size: 20px;
+      line-height: 1.4;
+      letter-spacing: 0;
+      margin: 32px 0 12px;
+      break-after: avoid;
+    }
+
+    p, li {
+      font-size: 17px;
+      max-width: 42em;
+    }
+
+    .meta {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px 24px;
+      color: var(--muted);
+      font-size: 14px;
+      max-width: 620px;
+      margin-top: 28px;
+    }
+
+    .summary {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(260px, 0.85fr);
+      gap: 28px;
+      align-items: start;
+      margin: 32px 0 40px;
+    }
+
+    .callout {
+      background: var(--accent-soft);
+      border-left: 4px solid var(--accent);
+      padding: 18px 22px;
+      break-inside: avoid;
+    }
+
+    .callout p {
+      margin: 0;
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      font-family: var(--font-sans);
+    }
+
+    .metric {
+      border: 1px solid var(--line);
+      padding: 16px;
+      background: #fffdf8;
+      min-height: 132px;
+    }
+
+    .metric strong {
+      display: block;
+      color: var(--accent);
+      font-size: 30px;
+      line-height: 1.1;
+      margin-bottom: 10px;
+    }
+
+    .metric span {
+      display: block;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 18px 0 8px;
+      font-family: var(--font-sans);
+      break-inside: avoid;
+    }
+
+    th, td {
+      border-bottom: 1px solid var(--line);
+      padding: 12px 10px;
+      vertical-align: middle;
+      font-size: 14px;
+    }
+
+    th {
+      text-align: left;
+      color: var(--muted);
+      font-weight: 700;
+      background: #f3f0e8;
+    }
+
+    td.num, th.num { text-align: right; }
+
+    figure {
+      margin: 28px 0;
+      break-inside: avoid;
+    }
+
+    .bars {
+      display: grid;
+      gap: 12px;
+      font-family: var(--font-sans);
+      max-width: 720px;
+    }
+
+    .bar-row {
+      display: grid;
+      grid-template-columns: 108px 1fr 48px;
+      gap: 12px;
+      align-items: center;
+      font-size: 14px;
+    }
+
+    .bar-track {
+      height: 14px;
+      background: #e1ded6;
+      overflow: hidden;
+    }
+
+    .bar {
+      height: 100%;
+      background: var(--accent);
+    }
+
+    figcaption {
+      color: var(--ink);
+      font-weight: 700;
+      margin: 12px 0 4px;
+    }
+
+    .source {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    code {
+      font-family: var(--font-mono);
+      font-size: 0.92em;
+      background: #eee9df;
+      padding: 1px 4px;
+    }
+
+    .risk {
+      border: 1px solid #e3c5a5;
+      background: #fff7ee;
+      padding: 16px 20px;
+      color: var(--warn);
+      break-inside: avoid;
+    }
+
+    @page {
+      size: A4;
+      margin: 22mm 18mm 24mm;
+    }
+
+    @media print {
+      body { background: white; }
+      .report { padding: 0; max-width: none; background: white; }
+      .cover { min-height: 74vh; break-after: page; }
+      h2 { break-before: auto; }
+      table, figure, .callout, .metric { break-inside: avoid; }
+      p { orphans: 2; widows: 2; }
+    }
+
+    @media (max-width: 760px) {
+      .report { padding: 36px 22px 56px; }
+      .summary, .metric-grid, .meta { grid-template-columns: 1fr; }
+      .bar-row { grid-template-columns: 90px 1fr 42px; }
+      h1 { font-size: 38px; }
+    }
+  </style>
+</head>
+<body>
+  <article class="report">
+    <section class="cover">
+      <p class="kicker">试点评估报告 / 示意样稿</p>
+      <h1>城市图书馆 AI 服务试点评估报告</h1>
+      <p>本报告示范 `document-report-skill` 应输出的中文长文档结构：先给结论，再说明证据、方法、限制和下一步。</p>
+      <div class="meta">
+        <span>读者：公共服务数字化负责人</span>
+        <span>版本：v0.1 smoke test</span>
+        <span>日期：2026 年 5 月 11 日</span>
+        <span>证据状态：示意数据，待真实来源替换</span>
+      </div>
+    </section>
+
+    <section>
+      <h2>1. 摘要</h2>
+      <div class="summary">
+        <div class="callout">
+          <p><strong>核心结论：</strong>AI 问答台适合先作为“导览和检索补充”上线，不宜直接替代馆员咨询。试点的主要价值在于降低重复问题压力，并把复杂问题更快转交给人工。</p>
+        </div>
+        <div class="metric-grid">
+          <div class="metric">
+            <strong>34%</strong>
+            <span>重复咨询可被标准答案覆盖。示意数据，来自试点问题分类。</span>
+          </div>
+          <div class="metric">
+            <strong>18 秒</strong>
+            <span>常见开放时间、馆藏位置问题的中位响应时长。</span>
+          </div>
+          <div class="metric">
+            <strong>7 类</strong>
+            <span>需要人工兜底的高风险问题类型。</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>2. 方法与证据状态</h2>
+      <p>本样稿使用示意数据，目的是验证报告结构、中文标签、图表来源说明和打印布局。正式报告应替换为真实日志、馆员访谈、用户反馈表和系统响应记录。</p>
+      <table>
+        <thead>
+          <tr>
+            <th>证据项</th>
+            <th>当前状态</th>
+            <th>正式版处理</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>咨询问题分类</td>
+            <td>示意</td>
+            <td>替换为 <code>library_helpdesk_logs</code> 导出结果</td>
+          </tr>
+          <tr>
+            <td>用户满意度</td>
+            <td>待补证据</td>
+            <td>需要问卷样本、样本量、时间窗口</td>
+          </tr>
+          <tr>
+            <td>人工转接质量</td>
+            <td>待补证据</td>
+            <td>需要馆员复核记录和典型案例</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="source">来源：示意样稿；正式报告不得沿用此处数值。</p>
+    </section>
+
+    <section>
+      <h2>3. 核心发现</h2>
+      <h3>3.1 高频问题集中在导览、开放时间和馆藏位置</h3>
+      <figure>
+        <div class="bars" aria-label="问题类型占比">
+          <div class="bar-row"><span>开放时间</span><div class="bar-track"><div class="bar" style="width: 34%"></div></div><span>34%</span></div>
+          <div class="bar-row"><span>馆藏位置</span><div class="bar-track"><div class="bar" style="width: 27%"></div></div><span>27%</span></div>
+          <div class="bar-row"><span>借阅规则</span><div class="bar-track"><div class="bar" style="width: 21%"></div></div><span>21%</span></div>
+          <div class="bar-row"><span>活动报名</span><div class="bar-track"><div class="bar" style="width: 11%"></div></div><span>11%</span></div>
+          <div class="bar-row"><span>复杂咨询</span><div class="bar-track"><div class="bar" style="width: 7%"></div></div><span>7%</span></div>
+        </div>
+        <figcaption>图 1：重复咨询主要集中在低风险导览问题</figcaption>
+        <p class="source">来源：示意问题分类；口径：仅用于 skill smoke test。</p>
+      </figure>
+
+      <h3>3.2 高风险问题必须保留人工转接</h3>
+      <p>版权咨询、未成年人隐私、账号争议、遗失物、投诉、特殊群体协助和政策解释不应由模型直接给出最终结论。报告应把这些边界写成上线前验收项，而不是藏在附录里。</p>
+      <div class="risk">
+        <strong>风险提示：</strong>如果没有人工兜底和答案来源标注，AI 服务会把“响应速度”误包装成“服务可靠性”。
+      </div>
+    </section>
+
+    <section>
+      <h2>4. 建议与下一步</h2>
+      <ol>
+        <li>第一阶段只开放低风险导览、开放时间、馆藏位置和借阅规则问题。</li>
+        <li>建立问题分类、答案来源、人工转接原因和用户反馈四张基础表。</li>
+        <li>每周抽样复核模型回答，把错误类型写入上线风险日志。</li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>5. 限制</h2>
+      <p>本报告是样式与结构验证，不代表真实图书馆运营结论。正式版必须补齐真实数据来源、样本量、时间窗口、访谈记录和复核方法。</p>
+    </section>
+  </article>
+</body>
+</html>
