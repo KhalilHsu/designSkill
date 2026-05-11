@@ -1,6 +1,6 @@
 ---
 name: presentation-deck-skill
-description: Use when generating web-native pitch decks, research decks, board updates, or data storytelling presentations for AI/database products. Turns analysis, metrics, source material, and user goals into browser-based HTML/CSS/JS decks by establishing audience, narrative arc, evidence mapping, one-idea-per-slide structure, and accurate chart presentation.
+description: "用于生成或改进浏览器原生演示文稿、pitch deck、研究 deck、董事会更新、销售/客户汇报和数据故事。Use when the requested deliverable is a presentation or slide deck, not a long-form report or general web page. Turns analysis, metrics, source material, and user goals into browser-based HTML/CSS/JS decks with audience decision flow, evidence mapping, one-idea-per-slide pacing, Chinese/English deck copy, and accurate chart/source presentation."
 ---
 
 # Presentation Deck Skill
@@ -13,6 +13,24 @@ This is a data/business storytelling skill, not a generic "pretty HTML slides" s
 
 This skill uses progressive disclosure. Do not load every reference by default. First identify the audience, presentation goal, and technical output format, then read only the references that are needed.
 
+## Skill Boundary
+
+Use this skill only when the output should behave like a presentation: discrete slides, sequential pacing, live/meeting audience flow, and one idea per slide.
+
+- Use `document-report-skill` instead when the user wants a memo, long-form report, whitepaper, PDF-ready article, research writeup, or source-heavy reading document.
+- Use `web-design-skill` instead when the user wants a normal web page, dashboard, product page, app screen, or interactive data view rather than slide pacing.
+- If the user says "展示", "分享", or "汇报" without a format, infer from the deliverable: slide deck for live/meeting presentation, report for reading, web page for browsing/interaction. Ask only when this materially changes the result.
+
+## Minimum Rules
+
+Apply these even when no reference file is loaded:
+
+1. Default visible deck copy to the user's prompt language, including titles, labels, controls, legends, source notes, and speaker-facing explanations.
+2. For Chinese decks, use Chinese-capable font stacks first; never make Latin display fonts the primary style for Chinese text.
+3. Build an evidence map before slide copy. Unsupported claims must be removed, softened, or labeled as `假设` / `示意`.
+4. Choose a useful deck length before generating slides. If unspecified, use 5-7 slides for a short briefing, 8-12 for pitch/sales/customer decks, 6-10 for board/research updates, and add appendix slides only when the user asks for depth.
+5. Enforce one idea per slide and fix slides that exceed presentation density instead of shrinking text until it fits.
+
 ## Core Workflow
 
 1. Clarify the audience and goal:
@@ -20,6 +38,7 @@ This skill uses progressive disclosure. Do not load every reference by default. 
    - What is the ONE main takeaway the audience should remember?
    - What source material exists: database export, SQL result, metrics table, analysis memo, screenshots, research notes, or rough claims?
    - Confirm the desired output: web-native HTML/CSS/JS slide deck, React components with slide behavior, or just a detailed textual outline.
+   - Confirm or infer target length: quick briefing, standard deck, or deep deck with appendix.
    - Match the deck copy language to the user's prompt language unless the user explicitly asks for another language.
 
 2. Build the evidence map before writing slides:
@@ -71,3 +90,17 @@ Read references based on the current presentation design phase:
 - Preserve explicit brand names, product names, dataset names, table names, query IDs, metrics IDs, code snippets, and proper nouns in the language or notation provided.
 - If the user requests a bilingual deck, define the language structure deliberately instead of mixing languages casually.
 - Avoid literal machine translation. Write natural presentation copy for the selected audience and language.
+- For Chinese decks, use Chinese punctuation in prose and UI labels: `，` `。` `：` `；` `（ ）`. Keep ASCII punctuation inside code, URLs, query IDs, filenames, and technical identifiers.
+- For Chinese data slides, use natural labels and units such as `来源：`, `假设：`, `样本：`, `同比`, `环比`, `近 30 天`, `万元`, and `n=`.
+- For Chinese typography, prefer the font guidance in `references/typography-hierarchy.md` before applying any Latin font recommendations from style archetypes.
+
+## Anti-Patterns
+
+- Do not generate a scrolling article, dashboard, or landing page and call it a deck.
+- Do not turn a presentation into a report by filling slides with paragraphs, footnotes, and dense tables.
+- Do not use generic slide titles such as `Overview`, `Metrics`, `背景`, or `数据分析` when a conclusion title is possible.
+- Do not invent numbers, citations, source tables, customer quotes, market sizes, or chart values.
+- Do not hide missing evidence behind confident pitch language.
+- Do not mix English slide chrome into a Chinese deck unless the user asked for bilingual output.
+- Do not rely on Latin-only display fonts for Chinese copy; the fallback glyphs will make the visual system accidental.
+- Do not produce 20-30 slides by default. Expand only when the source material and user goal justify it.

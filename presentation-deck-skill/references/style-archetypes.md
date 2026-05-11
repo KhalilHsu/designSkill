@@ -8,6 +8,10 @@ If the user does not specify a style, default to **Data Executive Clean** for bo
 
 Translate these archetypes into concrete CSS variables (Tokens) in the `:root` of the generated HTML.
 
+## Chinese Typography Guardrail
+
+The font examples below describe Latin mood only. For Chinese or mixed Chinese/English decks, read `typography-hierarchy.md` and use Chinese-capable stacks as the primary typography. Express the archetype through weight, spacing, contrast, layout, and color instead of relying on Latin-only display fonts.
+
 ## 1. High-Contrast Startup
 Use for fundraising, product launches, and category-creation decks where the deck needs to feel decisive and memorable.
 - **Mood:** Energetic, opinionated, slightly raw, high contrast.
@@ -19,6 +23,7 @@ Use for fundraising, product launches, and category-creation decks where the dec
 - **Typography:**
   - Headers: Heavy, tight geometric sans-serif (e.g., `Space Grotesk`, `Syne`, or `Clash Display`).
   - Body: Highly readable sans-serif.
+  - Chinese decks: use the Chinese sans stack from `typography-hierarchy.md`; keep the high-contrast mood through heavier weights, short titles, and decisive color.
 - **Visuals:** Hard borders, bold geometric shapes, large metric moments, and decisive contrast. Keep decorative effects secondary to the main claim.
 
 ## 2. Editorial Authority
@@ -32,6 +37,7 @@ Use for research briefings, thesis decks, market maps, and whitepaper-style pres
 - **Typography:**
   - Headers: Elegant Serif with high contrast between thick and thin strokes (e.g., `Playfair Display`, `Merriweather`, or `Lora`).
   - Body: Refined, light sans-serif (e.g., `Lato`, `Montserrat`) with generous line-height (`1.6`).
+  - Chinese decks: use `Noto Serif SC`, `Source Han Serif SC`, `Songti SC`, or `STSong` only for large editorial titles; keep labels, charts, and dense notes in Chinese sans.
 - **Visuals:** Generous negative space, thin rules, numbered sections, pull quotes, source notes, and carefully framed charts.
 
 ## 3. Data Executive Clean
@@ -45,6 +51,7 @@ Use for board updates, operating reviews, customer ROI decks, and investor updat
 - **Typography:**
   - Headers: Classic, sturdy sans-serif (e.g., `Helvetica Neue`, `Arial`, or `Open Sans`).
   - Body: Same as headers, or a very readable serif (e.g., `Georgia`).
+  - Chinese decks: use the Chinese sans stack and numeric stack from `typography-hierarchy.md`.
 - **Visuals:** Clean grid lines, subtle dividers, restrained color, clear tables, precise chart labels, and visible source/caveat treatment.
 
 ## 4. Technical Console
@@ -57,6 +64,7 @@ Use for deep-tech demos, developer audiences, security, infrastructure, data too
   - `--accent`: `#ffffff` (White for extreme highlights) or `#ef4444` (Error Red).
 - **Typography:**
   - Headers & Body: Monospace fonts ONLY (e.g., `Fira Code`, `JetBrains Mono`, `Courier New`).
+  - Chinese decks: use monospace only for code/query fragments. Use Chinese sans for claims, labels, and explanation text.
 - **Visuals:** Code panels, query snippets, terminal-like evidence blocks, trace diagrams, and high-contrast borders. Avoid making every slide look like a fake terminal if the evidence is business data.
 
 ## Implementation Note for AI

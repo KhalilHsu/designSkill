@@ -1,15 +1,17 @@
 # Source Notes
 
-These notes summarize how the downloaded brand references were abstracted. They are not instructions to copy any brand.
+These notes summarize how the downloaded style references were abstracted. They are internal provenance notes, not instructions to copy or publicly name any source brand.
 
 ## Sources Reviewed
 
-- `downloadedMD/Apple.md`
-- `downloadedMD/B&O.md`
-- `downloadedMD/airtable.md`
-- `downloadedMD/monday.md`
-- `downloadedMD/notion.md`
-- `downloadedMD/slack.md`
+- Product-focus hardware reference.
+- Luxury audio/product reference.
+- Approachable database/productivity reference.
+- Playful work-management reference.
+- Document/workspace product reference.
+- Collaboration product reference.
+
+Do not mention these source brands in generated user-facing pages, implementation notes, or style explanations unless the user explicitly asks for provenance. Convert the source observations into generic design principles and reusable archetypes.
 
 ## Shared Structure Found
 
@@ -29,7 +31,7 @@ All reviewed files use a similar style-reference structure:
 
 This skill converts that shared structure into a general workflow: visual direction, tokens, layout, components, interaction, responsive/accessibility, implementation, and quality rubric.
 
-## Apple-Derived Abstractions
+## Product-Focus Hardware Abstractions
 
 Useful abstractions:
 
@@ -41,10 +43,10 @@ Useful abstractions:
 Do not copy:
 
 - Exact color palette.
-- SF Pro-only typography.
-- Apple-like product page composition unless requested.
+- Source-specific typography.
+- Source-like product page composition unless requested.
 
-## Bang & Olufsen-Derived Abstractions
+## Luxury Product Abstractions
 
 Useful abstractions:
 
@@ -54,11 +56,11 @@ Useful abstractions:
 
 Do not copy:
 
-- BeoSupreme-specific rules.
+- Source-specific rules.
 - Exact indigo/cream palette.
 - Product-gallery structure for unrelated pages.
 
-## Airtable-Derived Abstractions
+## Approachable Database/Productivity Abstractions
 
 Useful abstractions:
 
@@ -69,9 +71,9 @@ Useful abstractions:
 Do not copy:
 
 - Exact accent palette.
-- Airtable-like workflow metaphors unless appropriate.
+- Source-like workflow metaphors unless appropriate.
 
-## Monday-Derived Abstractions
+## Playful Work-Management Abstractions
 
 Useful abstractions:
 
@@ -84,7 +86,7 @@ Do not copy:
 - Violet as the default action color.
 - Overly colorful cards for serious or dense interfaces.
 
-## Notion-Derived Abstractions
+## Document/Workspace Product Abstractions
 
 Useful abstractions:
 
@@ -95,10 +97,10 @@ Useful abstractions:
 Do not copy:
 
 - Exact dark navy palette.
-- NotionInter/Lyon-specific hierarchy.
+- Source-specific font hierarchy.
 - Dark mode for every technical product by default.
 
-## Slack-Derived Abstractions
+## Collaboration Product Abstractions
 
 Useful abstractions:
 
@@ -108,6 +110,6 @@ Useful abstractions:
 
 Do not copy:
 
-- Slack's purple palette.
+- The source brand's purple palette.
 - Brand-specific typography.
 - Gradients that overpower content.

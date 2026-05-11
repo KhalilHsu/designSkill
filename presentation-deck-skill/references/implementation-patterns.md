@@ -10,11 +10,11 @@ Do not use React, Vue, Marp, or Reveal.js by default. If the user is building in
 The document should be a container of `<section>` elements.
 ```html
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Presentation</title>
+  <title>演示文稿</title>
   <style>
     /* CSS goes here */
   </style>
@@ -30,6 +30,8 @@ The document should be a container of `<section>` elements.
 </body>
 </html>
 ```
+
+Set `lang="zh-CN"` for Chinese decks, `lang="en"` for English decks, and another accurate language tag when the user requests it. Do not leave the document language as English when all visible slide copy is Chinese.
 
 ### 2. Core CSS Mechanics
 
@@ -112,6 +114,15 @@ For decks based on data, include unobtrusive evidence metadata in the DOM so the
   <p class="eyebrow">Q3 revenue</p>
   <h1>Enterprise revenue doubled year over year</h1>
   <p class="source-note">Source: warehouse.orders, paid enterprise accounts, Q3 2025 vs Q3 2026</p>
+</section>
+```
+
+Chinese data deck example:
+```html
+<section class="slide current" data-source="sales_q2" data-query="region_revenue_yoy">
+  <p class="eyebrow">经营摘要</p>
+  <h1>华东收入同比增长 38%，续费率是主要拉动项</h1>
+  <p class="source-note">来源：sales_q2，筛选：企业客户，时间：2026 年 Q2，样本 n=184。</p>
 </section>
 ```
 

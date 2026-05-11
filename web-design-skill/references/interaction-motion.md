@@ -41,6 +41,15 @@ Use loading patterns based on task:
 - Progress indicator for longer tasks.
 - Disabled button with preserved width for submitting.
 
+## Chinese UI Interaction Notes
+
+Chinese labels are often shorter, but Chinese explanations and tooltips can be denser than English. Tune interaction copy and timing for scanning:
+
+- Tooltips: keep Chinese tooltip copy to one short sentence; avoid replacing labels that should be visible.
+- Dropdown/search menus: keep the typed query visible, support mixed Chinese/Latin input, and avoid truncating selected Chinese labels.
+- Tables and filters: prefer stable row heights and clear selected/filter states; do not animate dense Chinese table content on every hover.
+- Loading and empty states: use direct Chinese action copy such as `正在分析`, `暂无数据`, `重新加载`, or `调整筛选`, not decorative filler text.
+
 ## Motion Timing
 
 Default ranges:

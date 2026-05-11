@@ -1,6 +1,6 @@
 ---
 name: web-design-skill
-description: Use when creating or improving high-quality web pages, landing pages, product pages, web app screens, dashboards, marketing pages, documentation pages, or interactive frontend UI. Produces polished, responsive, accessible HTML/CSS, React, or Next.js code by first defining a visual direction, design tokens, layout composition, components, interactions, and a quality rubric.
+description: "用于生成或改进网页、落地页、产品页、Web app screen、dashboard、文档页和交互式前端 UI。Use when the requested deliverable is a browsable web page or app UI, not a slide deck or long-form report. Produces polished, responsive, accessible HTML/CSS, React, or Next.js code by defining visual direction, design tokens, layout composition, components, interactions, data-aware structure, and quality checks."
 ---
 
 # Web Design Skill
@@ -8,6 +8,25 @@ description: Use when creating or improving high-quality web pages, landing page
 Use this skill when the user asks to generate, redesign, polish, or implement a web page or web UI. The goal is production-quality code with a clear visual point of view, not generic template output.
 
 This skill uses progressive disclosure. Do not load every reference by default. First identify the page type, data source, stack, and main design problem, then read only the references that are needed.
+
+## Skill Boundary
+
+Use this skill when the output should be browsed, clicked, scanned, or operated as a web page/app UI.
+
+- Use `presentation-deck-skill` instead when the user wants a slide deck, pitch deck, board update, meeting presentation, or sequential data story.
+- Use `document-report-skill` instead when the user wants a memo, report, whitepaper, PDF-ready document, investment note, or long-form analysis artifact.
+- For ambiguous requests like "把这些数据做成一个展示", route by surface: interactive/browsable page -> this skill; live/meeting slides -> presentation deck; reading/printing/shareable memo -> document report.
+- Do not narrow this skill to one page family. It should stay general across landing pages, app screens, dashboards, data pages, and documentation pages while making the deliverable boundary explicit.
+
+## Minimum Rules
+
+Apply these even when no reference file is loaded:
+
+1. Identify page/UI type, stack, data/source status, audience, and primary user task before implementation.
+2. Preserve provided business fields, records, media, labels, filters, and metric definitions; do not replace them with generic mock content.
+3. Default visible copy to the user's prompt language and use Chinese-capable font stacks for Chinese UI.
+4. Choose layout from content/data shape instead of forcing a default dashboard, SaaS landing page, or card grid.
+5. Run the quality gate before final output and fix weak hierarchy, missing states, poor contrast, fake data access, broken assets, and brittle responsive behavior.
 
 ## Core Workflow
 
@@ -101,7 +120,7 @@ Read references based on the current design problem:
 ## Style Selection Rules
 
 - Do not copy a brand system verbatim unless explicitly asked.
-- Use brand references as archetypes, not as default tokens.
+- Use source references as archetypes, not as default tokens or public-facing attribution.
 - Avoid default SaaS sameness: white page, purple CTA, generic cards, system font, no atmosphere.
 - A page should have one dominant visual idea: precision, editorial calm, playful productivity, cinematic product focus, command-center utility, warm craft, or another coherent direction.
 - More color is not automatically more designed. More restraint is not automatically more premium.
@@ -115,6 +134,15 @@ Read references based on the current design problem:
 - Avoid placeholder-only layouts unless the user specifically requests a wireframe.
 - For frontend repo edits, run the available formatter/test/build commands when feasible.
 - For data-backed products, preserve and use the provided business fields instead of replacing them with generic mock content.
+
+## Anti-Patterns
+
+- Do not solve report or deck requests by wrapping long text or slides in a generic web page.
+- Do not invent APIs, datasets, image URLs, package dependencies, component libraries, or brand assets.
+- Do not expose internal source-reference names in generated user-facing copy unless the user explicitly asks about provenance.
+- Do not default every data request to a dashboard. Choose page structure from the data relationship and user task.
+- Do not rely on Latin-only display fonts for Chinese UI.
+- Do not ship static-only controls for an app UI when hover, focus, active, disabled, loading, empty, and error states are expected.
 
 ## Reference Map
 

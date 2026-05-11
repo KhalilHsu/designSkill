@@ -2,7 +2,7 @@
 
 Read this before deciding *what* goes on any slide. A presentation is a time-based medium; the narrative arc is more important than individual slide design.
 
-For AI/database products, the narrative arc must be built from claims and evidence, not from slide templates. Each major claim should have a visible support path: metric, query result, chart, screenshot, source note, customer quote, or explicit assumption.
+For business, product, research, sales, and data presentations, the narrative arc must be built from claims and evidence, not from slide templates. Each major claim should have a visible support path: metric, query result, chart, screenshot, source note, customer quote, or explicit assumption.
 
 ## The "Audience Decision Flow"
 
