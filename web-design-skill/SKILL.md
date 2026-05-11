@@ -1,5 +1,6 @@
 ---
 name: web-design-skill
+version: "2026-05-11"
 description: "用于生成或改进网页、落地页、产品页、Web app screen、dashboard、文档页和交互式前端 UI。Use when the requested deliverable is a browsable web page or app UI, not a slide deck or long-form report. Produces polished, responsive, accessible HTML/CSS, React, or Next.js code by defining visual direction, design tokens, layout composition, components, interactions, data-aware structure, and quality checks."
 ---
 
@@ -23,7 +24,7 @@ Use this skill when the output should be browsed, clicked, scanned, or operated 
 Apply these even when no reference file is loaded:
 
 1. Identify page/UI type, stack, data/source status, audience, and primary user task before implementation.
-2. Preserve provided business fields, records, media, labels, filters, and metric definitions; do not replace them with generic mock content.
+2. Preserve provided business fields, records, media, labels, filters, table names, view names, query IDs, metric IDs, date ranges, and metric definitions; do not replace them with generic mock content.
 3. Default visible copy to the user's prompt language and use Chinese-capable font stacks for Chinese UI.
 4. Choose layout from content/data shape instead of forcing a default dashboard, SaaS landing page, or card grid.
 5. Run the quality gate before final output and fix weak hierarchy, missing states, poor contrast, fake data access, broken assets, and brittle responsive behavior.
@@ -143,6 +144,19 @@ Read references based on the current design problem:
 - Do not default every data request to a dashboard. Choose page structure from the data relationship and user task.
 - Do not rely on Latin-only display fonts for Chinese UI.
 - Do not ship static-only controls for an app UI when hover, focus, active, disabled, loading, empty, and error states are expected.
+
+## Compact Example
+
+User: `把 inventory_dashboard 视图做成一个好看的页面。`
+
+Internal routing:
+- Surface: browsable data page, not report or slide deck.
+- Data handles: `inventory_dashboard`, selected filters, visible fields, metric IDs, refresh time, and any available row/media records.
+- Required references: `data-driven-generation.md`, `style-archetypes.md`, `layout-composition.md`, `components-states.md`, `quality-rubric.md`.
+
+Output shape:
+- A compact web page or app screen with summary metrics, primary table/list/detail area, source/update metadata, filter/search states, empty/loading/error states, and responsive layout.
+- Chinese UI copy by default when the user prompt is Chinese; preserve table/view/query identifiers exactly.
 
 ## Reference Map
 

@@ -108,21 +108,21 @@ Use modern CSS primitives (Grid/Flex) and Viewport units (`vw`/`vh`) inside the 
 
 ### 5. Evidence Metadata
 
-For decks based on data, include unobtrusive evidence metadata in the DOM so the rendered slide can stay clean while the source remains inspectable.
-```html
-<section class="slide current" data-source="warehouse.orders" data-query="weekly_revenue_paid_accounts">
-  <p class="eyebrow">Q3 revenue</p>
-  <h1>Enterprise revenue doubled year over year</h1>
-  <p class="source-note">Source: warehouse.orders, paid enterprise accounts, Q3 2025 vs Q3 2026</p>
-</section>
-```
-
-Chinese data deck example:
+For decks based on data, include unobtrusive evidence metadata in the DOM so the rendered slide can stay clean while the source remains inspectable. Put the example language that matches the user prompt first; for Chinese users, prefer the Chinese pattern.
 ```html
 <section class="slide current" data-source="sales_q2" data-query="region_revenue_yoy">
   <p class="eyebrow">经营摘要</p>
   <h1>华东收入同比增长 38%，续费率是主要拉动项</h1>
   <p class="source-note">来源：sales_q2，筛选：企业客户，时间：2026 年 Q2，样本 n=184。</p>
+</section>
+```
+
+English data deck example:
+```html
+<section class="slide current" data-source="warehouse.orders" data-query="weekly_revenue_paid_accounts">
+  <p class="eyebrow">Q3 revenue</p>
+  <h1>Enterprise revenue doubled year over year</h1>
+  <p class="source-note">Source: warehouse.orders, paid enterprise accounts, Q3 2025 vs Q3 2026</p>
 </section>
 ```
 

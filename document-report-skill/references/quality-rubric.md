@@ -48,7 +48,7 @@ Pass when:
 - Methods, time windows, units, samples, and calculation definitions are visible where they affect interpretation.
 
 Fix when:
-- Charts appear without source/time window/口径.
+- Charts appear without source, time window, statistical scope, or calculation method.
 - A polished conclusion overstates weak evidence.
 - Technical identifiers were translated or normalized incorrectly.
 - Forecasts, rankings, or comparisons appear without source or assumptions.

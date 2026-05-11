@@ -1,5 +1,6 @@
 ---
 name: document-report-skill
+version: "2026-05-11"
 description: "用于生成或改写中文/多语言报告、研究报告、数据分析摘要、投资 memo、白皮书、技术规格和 PDF/HTML 文档。Use for source-aware report writing with evidence, tables, citations, structure, and quality checks."
 ---
 

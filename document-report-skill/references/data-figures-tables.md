@@ -36,7 +36,7 @@ Do not use `Figure`, `Table`, `Source`, or `Note` in an otherwise Chinese report
 - Avoid dense paragraph text inside table cells.
 - Right-align numeric columns where comparison matters.
 - Keep units in headers when possible: `收入（万元）`, `耗时（小时）`.
-- Add notes below the table for口径, not inside every cell.
+- Add notes below the table for statistical scope (`统计口径`), not inside every cell.
 - Keep status/severity columns compact.
 - Use consistent decimal precision across comparable numeric columns.
 - Use `—` or `暂无数据` only when the meaning is clear; do not mix missing, zero, and not applicable.

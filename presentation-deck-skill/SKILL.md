@@ -1,5 +1,6 @@
 ---
 name: presentation-deck-skill
+version: "2026-05-11"
 description: "用于生成或改进浏览器原生演示文稿、pitch deck、研究 deck、董事会更新、销售/客户汇报和数据故事。Use when the requested deliverable is a presentation or slide deck, not a long-form report or general web page. Turns analysis, metrics, source material, and user goals into browser-based HTML/CSS/JS decks with audience decision flow, evidence mapping, one-idea-per-slide pacing, Chinese/English deck copy, and accurate chart/source presentation."
 ---
 
